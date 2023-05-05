@@ -1,0 +1,127 @@
+m255
+K3
+13
+cModel Technology
+Z0 dF:\Lab_Work\1_Learning\4_Signal_Processing_Code\FFT\FFT_Verilog\prj\simulation\modelsim
+T_opt
+V>V_KhaPkJbjNW?a2`nRh70
+04 6 4 work tb_top fast 0
+=9-3cf011f61099-6453c102-dd-33d0
+o-quiet -auto_acc_if_foreign -work work -L altera_ver -L lpm_ver -L sgate_ver -L altera_mf_ver -L altera_lnsim_ver -L cycloneive_ver -L rtl_work -L work +acc
+n@_opt
+OE;O;10.1a;51
+vA_RAM
+IV06L1;6PVMb@[e3mo2>M92
+V;WZAVS]C8b9`be90]>FZM2
+Z1 dF:\Lab_Work\1_Learning\4_Signal_Processing_Code\FFT\FFT_Verilog\prj\simulation\modelsim
+w1683208054
+8F:/Lab_Work/1_Learning/4_Signal_Processing_Code/FFT/FFT_Verilog/rtl/A_RAM.v
+FF:/Lab_Work/1_Learning/4_Signal_Processing_Code/FFT/FFT_Verilog/rtl/A_RAM.v
+L0 2
+Z2 OE;L;10.1a;51
+r1
+31
+Z3 o-vlog01compat -work work -L mtiAvm -L mtiOvm -L mtiUvm -L mtiUPF
+Z4 !s92 -vlog01compat -work work +incdir+F:/Lab_Work/1_Learning/4_Signal_Processing_Code/FFT/FFT_Verilog/rtl -L mtiAvm -L mtiOvm -L mtiUvm -L mtiUPF
+n@a_@r@a@m
+!i10b 1
+!s100 @[3iS@SHGajnAZAW4bhbT3
+!s85 0
+!s108 1683208101.396000
+!s107 F:/Lab_Work/1_Learning/4_Signal_Processing_Code/FFT/FFT_Verilog/rtl/A_RAM.v|
+!s90 -reportprogress|300|-vlog01compat|-work|work|+incdir+F:/Lab_Work/1_Learning/4_Signal_Processing_Code/FFT/FFT_Verilog/rtl|-L|mtiAvm|-L|mtiOvm|-L|mtiUvm|-L|mtiUPF|F:/Lab_Work/1_Learning/4_Signal_Processing_Code/FFT/FFT_Verilog/rtl/A_RAM.v|
+vbutterfly
+IOa6YIVc<j8amcIfX>T5Z23
+VbDTK5i]Xe_<nENBn<^8V43
+R1
+w1683210461
+8F:/Lab_Work/1_Learning/4_Signal_Processing_Code/FFT/FFT_Verilog/rtl/butterfly.v
+FF:/Lab_Work/1_Learning/4_Signal_Processing_Code/FFT/FFT_Verilog/rtl/butterfly.v
+L0 14
+R2
+r1
+31
+R3
+R4
+!i10b 1
+!s100 Bz0zV00E6Q5<5C9b`VRfl0
+!s85 0
+!s108 1683210494.934000
+!s107 F:/Lab_Work/1_Learning/4_Signal_Processing_Code/FFT/FFT_Verilog/rtl/butterfly.v|
+!s90 -reportprogress|300|-vlog01compat|-work|work|+incdir+F:/Lab_Work/1_Learning/4_Signal_Processing_Code/FFT/FFT_Verilog/rtl|-L|mtiAvm|-L|mtiOvm|-L|mtiUvm|-L|mtiUPF|F:/Lab_Work/1_Learning/4_Signal_Processing_Code/FFT/FFT_Verilog/rtl/butterfly.v|
+vip_multi
+I0mUccz]AkM[FNUmDmHjYC0
+Vki309Idk@nEV_HLe1E0^53
+R1
+w1683204291
+8F:/Lab_Work/1_Learning/4_Signal_Processing_Code/FFT/FFT_Verilog/prj/ip/ip_multi.v
+FF:/Lab_Work/1_Learning/4_Signal_Processing_Code/FFT/FFT_Verilog/prj/ip/ip_multi.v
+L0 39
+R2
+r1
+31
+R3
+!i10b 1
+!s100 S9Di=`e<]`Z>5UcmYVFG:2
+!s85 0
+!s108 1683204635.136000
+!s107 F:/Lab_Work/1_Learning/4_Signal_Processing_Code/FFT/FFT_Verilog/prj/ip/ip_multi.v|
+!s90 -reportprogress|300|-vlog01compat|-work|work|+incdir+F:/Lab_Work/1_Learning/4_Signal_Processing_Code/FFT/FFT_Verilog/prj/ip|F:/Lab_Work/1_Learning/4_Signal_Processing_Code/FFT/FFT_Verilog/prj/ip/ip_multi.v|
+!s92 -vlog01compat -work work +incdir+F:/Lab_Work/1_Learning/4_Signal_Processing_Code/FFT/FFT_Verilog/prj/ip -L mtiAvm -L mtiOvm -L mtiUvm -L mtiUPF
+vram_contral
+I@I8<GBHJcCc1P0Q;WjR:n2
+VQQ17GdazjFfOD7GUg0FmP0
+R1
+w1683204428
+8F:/Lab_Work/1_Learning/4_Signal_Processing_Code/FFT/FFT_Verilog/rtl/ram_contral.v
+FF:/Lab_Work/1_Learning/4_Signal_Processing_Code/FFT/FFT_Verilog/rtl/ram_contral.v
+L0 1
+R2
+r1
+31
+R3
+R4
+!i10b 1
+!s100 TFj?nd7LzWTKDemRG@27a0
+!s85 0
+!s108 1683204635.277000
+!s107 F:/Lab_Work/1_Learning/4_Signal_Processing_Code/FFT/FFT_Verilog/rtl/ram_contral.v|
+!s90 -reportprogress|300|-vlog01compat|-work|work|+incdir+F:/Lab_Work/1_Learning/4_Signal_Processing_Code/FFT/FFT_Verilog/rtl|F:/Lab_Work/1_Learning/4_Signal_Processing_Code/FFT/FFT_Verilog/rtl/ram_contral.v|
+vtb_top
+IS1J680kCXd1S13kMQS3zH0
+V[LcaLh[SJXomY3Ki^RaI?1
+R1
+w1683205909
+8F:/Lab_Work/1_Learning/4_Signal_Processing_Code/FFT/FFT_Verilog/testbench/tb_top.v
+FF:/Lab_Work/1_Learning/4_Signal_Processing_Code/FFT/FFT_Verilog/testbench/tb_top.v
+L0 7
+R2
+r1
+31
+R3
+!i10b 1
+!s100 dVmeZ`CdSWTXoPN]6QK[61
+!s85 0
+!s108 1683206032.339000
+!s107 F:/Lab_Work/1_Learning/4_Signal_Processing_Code/FFT/FFT_Verilog/testbench/tb_top.v|
+!s90 -reportprogress|300|-vlog01compat|-work|work|+incdir+F:/Lab_Work/1_Learning/4_Signal_Processing_Code/FFT/FFT_Verilog/prj/../testbench|-L|mtiAvm|-L|mtiOvm|-L|mtiUvm|-L|mtiUPF|F:/Lab_Work/1_Learning/4_Signal_Processing_Code/FFT/FFT_Verilog/testbench/tb_top.v|
+!s92 -vlog01compat -work work +incdir+F:/Lab_Work/1_Learning/4_Signal_Processing_Code/FFT/FFT_Verilog/prj/../testbench -L mtiAvm -L mtiOvm -L mtiUvm -L mtiUPF
+vtop
+I6:FROdnb0z@[_7UfL;T^z3
+V^khLYUza<IA9V1[D?cUJ>2
+R1
+w1677679464
+8F:/Lab_Work/1_Learning/4_Signal_Processing_Code/FFT/FFT_Verilog/rtl/top.v
+FF:/Lab_Work/1_Learning/4_Signal_Processing_Code/FFT/FFT_Verilog/rtl/top.v
+L0 1
+R2
+r1
+31
+R3
+R4
+!i10b 1
+!s100 4ccFg:HI`P7MKmG>=WhBc0
+!s85 0
+!s108 1683208107.717000
+!s107 F:/Lab_Work/1_Learning/4_Signal_Processing_Code/FFT/FFT_Verilog/rtl/top.v|
+!s90 -reportprogress|300|-vlog01compat|-work|work|+incdir+F:/Lab_Work/1_Learning/4_Signal_Processing_Code/FFT/FFT_Verilog/rtl|-L|mtiAvm|-L|mtiOvm|-L|mtiUvm|-L|mtiUPF|F:/Lab_Work/1_Learning/4_Signal_Processing_Code/FFT/FFT_Verilog/rtl/top.v|

@@ -1,0 +1,85 @@
+module butterfly(
+		clk,
+		rst,
+		en,
+		
+		a_re,
+		a_im,
+		
+		b_re,
+		b_im,
+		
+		c_re,
+		c_im
+		
+		outa_re,
+		outa_im,
+		
+		outb_re,
+		outb_im
+	);
+	
+	input clk;
+	input rst;
+	input en;
+	input clr;
+	
+	/*蝶形算子两个输入*/
+	input [23:0]a_re,a_im;
+	input [23:0]b_re,b_im;
+	
+	/*旋转因子*/
+	input [15:0]c_re,c_im;
+	
+	/*蝶形算子两个输出*/
+	input [23:0]outa_re,outa_im;
+	input [23:0]outb_re,outb_im;
+	
+	
+	reg [39:0]b_re_c_re,b_re_c_im,b_im_c_im,b_im_c_re;
+	/*b实部与旋转因子实部相乘*/
+	mult mult0(
+		.aclr(clr),
+		.clken(en),
+		.clock(clk),
+		.dataa(b_re),
+		.datab(c_re),
+		.result(b_re_c_re)
+	);
+	
+	mult mult1(
+		.aclr(clr),
+		.clken(en),
+		.clock(clk),
+		.dataa(b_re),
+		.datab(c_im),
+		.result(b_re_c_im)
+	);
+	
+	mult mult2(
+		.aclr(clr),
+		.clken(en),
+		.clock(clk),
+		.dataa(b_im),
+		.datab(c_im),
+		.result(b_im_c_im)
+	);
+	
+	mult mult3(
+		.aclr(clr),
+		.clken(en),
+		.clock(clk),
+		.dataa(b_im),
+		.datab(c_re),
+		.result(b_im_c_re)
+	);
+
+
+
+
+
+
+
+
+endmodule 
+

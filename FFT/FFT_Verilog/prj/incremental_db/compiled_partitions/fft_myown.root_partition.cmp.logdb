@@ -1,0 +1,10 @@
+v1
+DSP_BALANCING_IMPLEMENTATION,DSP_BLOCKS,butterfly:butterfly1|ip_multi:mult2|lpm_mult:lpm_mult_component|mult_q5q:auto_generated|mac_out2,
+DSP_BALANCING_IMPLEMENTATION,DSP_BLOCKS,butterfly:butterfly1|ip_multi:mult0|lpm_mult:lpm_mult_component|mult_q5q:auto_generated|mac_out2,
+DSP_BALANCING_IMPLEMENTATION,DSP_BLOCKS,butterfly:butterfly1|ip_multi:mult3|lpm_mult:lpm_mult_component|mult_q5q:auto_generated|mac_out2,
+DSP_BALANCING_IMPLEMENTATION,DSP_BLOCKS,butterfly:butterfly1|ip_multi:mult1|lpm_mult:lpm_mult_component|mult_q5q:auto_generated|mac_out2,
+DSP_BALANCING_IMPLEMENTATION,DSP_BLOCKS,butterfly:butterfly1|ip_multi:mult0|lpm_mult:lpm_mult_component|mult_q5q:auto_generated|mac_out4,
+DSP_BALANCING_IMPLEMENTATION,DSP_BLOCKS,butterfly:butterfly1|ip_multi:mult2|lpm_mult:lpm_mult_component|mult_q5q:auto_generated|mac_out4,
+DSP_BALANCING_IMPLEMENTATION,DSP_BLOCKS,butterfly:butterfly1|ip_multi:mult1|lpm_mult:lpm_mult_component|mult_q5q:auto_generated|mac_out4,
+DSP_BALANCING_IMPLEMENTATION,DSP_BLOCKS,butterfly:butterfly1|ip_multi:mult3|lpm_mult:lpm_mult_component|mult_q5q:auto_generated|mac_out4,
+PORT_SWAPPING,PORT_SWAPPING_FINISHED,butterfly:butterfly1|ip_multi:mult2|lpm_mult:lpm_mult_component|mult_q5q:auto_generated|mac_mult1,

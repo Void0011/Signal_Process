@@ -1,0 +1,6 @@
+
+State Machine - |top|A_RAM:ram1|initial_state
+Name initial_state.convert_finish initial_state.convert_store initial_state.origin_store 
+initial_state.origin_store 0 0 0 
+initial_state.convert_store 0 1 1 
+initial_state.convert_finish 1 0 1 

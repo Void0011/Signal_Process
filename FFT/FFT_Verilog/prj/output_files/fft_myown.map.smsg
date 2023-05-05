@@ -1,0 +1,1 @@
+Warning (10268): Verilog HDL information at A_RAM.v(81): always construct contains both blocking and non-blocking assignments File: F:/Lab_Work/1_Learning/4_Signal_Processing_Code/FFT/FFT_Verilog/rtl/A_RAM.v Line: 81

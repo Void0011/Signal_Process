@@ -1,0 +1,127 @@
+m255
+K3
+13
+cModel Technology
+Z0 dF:\Lab_Work\Learning\DownFre\prj\simulation\modelsim
+T_opt
+V@ATC6FNmUBe3`WnA9_Bl71
+04 6 4 work dds_tb fast 0
+=2-3cf011f61099-644369a9-1be-6d0
+o-quiet -auto_acc_if_foreign -work work -L altera_ver -L lpm_ver -L sgate_ver -L altera_mf_ver -L altera_lnsim_ver -L cycloneive_ver -L rtl_work -L work -L nco_ii_0 +acc
+n@_opt
+OE;O;10.1a;51
+vDDS
+IDe8=[EF2>C`NkMi^=OUS?1
+VJZ7g@@RSoe0jM;I6hjm_`2
+Z1 dF:\Lab_Work\Learning\DownFre\prj\simulation\modelsim
+w1682085525
+8F:/Lab_Work/Learning/DownFre/rtl/DDS.v
+FF:/Lab_Work/Learning/DownFre/rtl/DDS.v
+L0 3
+Z2 OE;L;10.1a;51
+r1
+31
+Z3 o-vlog01compat -work work -L mtiAvm -L mtiOvm -L mtiUvm -L mtiUPF
+Z4 !s92 -vlog01compat -work work +incdir+F:/Lab_Work/Learning/DownFre/rtl -L mtiAvm -L mtiOvm -L mtiUvm -L mtiUPF
+n@d@d@s
+!i10b 1
+!s100 4noRBTUz9jJbHFg2a1[Df2
+!s85 0
+!s108 1682139557.798000
+!s107 F:/Lab_Work/Learning/DownFre/rtl/DDS.v|
+!s90 -reportprogress|300|-vlog01compat|-work|work|+incdir+F:/Lab_Work/Learning/DownFre/rtl|-L|mtiAvm|-L|mtiOvm|-L|mtiUvm|-L|mtiUPF|F:/Lab_Work/Learning/DownFre/rtl/DDS.v|
+vdds_rom
+IdKXYRX::fEAZflh^9e;zK1
+VYG3V?b]lZ0DS[<cMD:[hF0
+R1
+w1682138694
+8F:/Lab_Work/Learning/DownFre/prj/dds_rom.v
+FF:/Lab_Work/Learning/DownFre/prj/dds_rom.v
+L0 39
+R2
+r1
+31
+R3
+!i10b 1
+!s100 @l`im:DKGV40W^@<ic3z<2
+!s85 0
+!s108 1682138800.610000
+!s107 F:/Lab_Work/Learning/DownFre/prj/dds_rom.v|
+!s90 -reportprogress|300|-vlog01compat|-work|work|+incdir+F:/Lab_Work/Learning/DownFre/prj|F:/Lab_Work/Learning/DownFre/prj/dds_rom.v|
+!s92 -vlog01compat -work work +incdir+F:/Lab_Work/Learning/DownFre/prj -L mtiAvm -L mtiOvm -L mtiUvm -L mtiUPF
+vdds_tb
+IfG:S7K[>F;<n7l[2UhlN:0
+V4EiVYVFe0MTbQd_NoP1<L1
+R1
+w1682085345
+8F:/Lab_Work/Learning/DownFre/prj/../testbench/dds_tb.v
+FF:/Lab_Work/Learning/DownFre/prj/../testbench/dds_tb.v
+L0 7
+R2
+r1
+31
+R3
+!i10b 1
+!s100 zEzQ3NlEO:YV3V697Jhnc2
+!s85 0
+!s108 1682138800.750000
+!s107 F:/Lab_Work/Learning/DownFre/prj/../testbench/dds_tb.v|
+!s90 -reportprogress|300|-vlog01compat|-work|work|+incdir+F:/Lab_Work/Learning/DownFre/prj/../testbench|F:/Lab_Work/Learning/DownFre/prj/../testbench/dds_tb.v|
+!s92 -vlog01compat -work work +incdir+F:/Lab_Work/Learning/DownFre/prj/../testbench -L mtiAvm -L mtiOvm -L mtiUvm -L mtiUPF
+vkey
+IQJDiWj]6@17cgW<6P=VFm0
+V7Bbfe>NRa[eZKoK:V5L:81
+R1
+w1682139522
+8F:/Lab_Work/Learning/DownFre/rtl/key.v
+FF:/Lab_Work/Learning/DownFre/rtl/key.v
+L0 1
+R2
+r1
+31
+R3
+R4
+!i10b 1
+!s100 RRdNPTX<HDkV:C]^^@1hJ1
+!s85 0
+!s108 1682139554.096000
+!s107 F:/Lab_Work/Learning/DownFre/rtl/key.v|
+!s90 -reportprogress|300|-vlog01compat|-work|work|+incdir+F:/Lab_Work/Learning/DownFre/rtl|-L|mtiAvm|-L|mtiOvm|-L|mtiUvm|-L|mtiUPF|F:/Lab_Work/Learning/DownFre/rtl/key.v|
+vkey_filter
+IdTiNQ22>YN6GQ]D2fBFlB1
+V37_R=a:c<48b;0HG`>QI;2
+R1
+w1682138178
+8F:/Lab_Work/Learning/DownFre/rtl/key_filter.v
+FF:/Lab_Work/Learning/DownFre/rtl/key_filter.v
+L0 3
+R2
+r1
+31
+R3
+R4
+!i10b 1
+!s100 _6AQ9g6R<KS9ISVZNHPBc3
+!s85 0
+!s108 1682138800.194000
+!s107 F:/Lab_Work/Learning/DownFre/rtl/key_filter.v|
+!s90 -reportprogress|300|-vlog01compat|-work|work|+incdir+F:/Lab_Work/Learning/DownFre/rtl|F:/Lab_Work/Learning/DownFre/rtl/key_filter.v|
+vNCO_NEW
+I`Hme73e@DRm4QlUEoi44c2
+Vj`KQRz1jUReckPC06Ief^2
+R1
+w1682062861
+8F:/Lab_Work/Learning/DownFre/prj/ip/NCO_NEW/simulation/NCO_NEW.v
+FF:/Lab_Work/Learning/DownFre/prj/ip/NCO_NEW/simulation/NCO_NEW.v
+L0 6
+R2
+r1
+31
+o-L mtiAvm -L mtiOvm -L mtiUvm -L mtiUPF
+n@n@c@o_@n@e@w
+!i10b 1
+!s100 ;0c`kIMkVn8R]FUW1ca`a3
+!s85 0
+!s108 1682138800.000000
+!s107 F:/Lab_Work/Learning/DownFre/prj/ip/NCO_NEW/simulation/NCO_NEW.v|
+!s90 -reportprogress|300|F:/Lab_Work/Learning/DownFre/prj/ip/NCO_NEW/simulation/NCO_NEW.v|

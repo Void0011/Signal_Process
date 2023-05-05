@@ -1,0 +1,46 @@
+m255
+K3
+13
+cModel Technology
+Z0 dF:\Lab_Work\Learning\DownFre\prj\simulation\modelsim
+vDDS
+IZh>O2;EW6a9Md]fS055GU3
+VaTF=bKlI?;5;G>IdQ;5BI0
+Z1 dF:\Lab_Work\Learning\DownFre\prj\simulation\modelsim
+w1681990686
+8DownFre_8_1200mv_85c_slow.vo
+FDownFre_8_1200mv_85c_slow.vo
+L0 31
+Z2 OV;L;10.1d;51
+r1
+31
+Z3 o-vlog01compat -work work -O0
+n@d@d@s
+!i10b 1
+!s100 Eb[T7?9KH0Oj>6BAF:R4g1
+!s85 0
+!s108 1681996631.997000
+!s107 DownFre_8_1200mv_85c_slow.vo|
+!s90 -reportprogress|300|-vlog01compat|-work|work|+incdir+.|DownFre_8_1200mv_85c_slow.vo|
+!s101 -O0
+!s92 -vlog01compat -work work +incdir+. -O0
+vdds_tb
+!i10b 1
+!s100 <?=UfNZhcfZFK0NOfaJGo1
+Ij@9?@VTX@M5HL<UE2Z5V50
+V4EiVYVFe0MTbQd_NoP1<L1
+R1
+w1681982296
+8F:/Lab_Work/Learning/DownFre/prj/../testbench/dds_tb.v
+FF:/Lab_Work/Learning/DownFre/prj/../testbench/dds_tb.v
+L0 7
+R2
+r1
+!s85 0
+31
+!s108 1681996632.402000
+!s107 F:/Lab_Work/Learning/DownFre/prj/../testbench/dds_tb.v|
+!s90 -reportprogress|300|-vlog01compat|-work|work|+incdir+F:/Lab_Work/Learning/DownFre/prj/../testbench|F:/Lab_Work/Learning/DownFre/prj/../testbench/dds_tb.v|
+!s101 -O0
+R3
+!s92 -vlog01compat -work work +incdir+F:/Lab_Work/Learning/DownFre/prj/../testbench -O0

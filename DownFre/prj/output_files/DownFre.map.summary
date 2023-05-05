@@ -1,0 +1,14 @@
+Analysis & Synthesis Status : Successful - Tue Apr 25 21:06:35 2023
+Quartus Prime Version : 18.0.0 Build 614 04/24/2018 SJ Standard Edition
+Revision Name : DownFre
+Top-level Entity Name : ShuM
+Family : Cyclone IV E
+Total logic elements : 999
+    Total combinational functions : 598
+    Dedicated logic registers : 760
+Total registers : 760
+Total pins : 14
+Total virtual pins : 0
+Total memory bits : 51,200
+Embedded Multiplier 9-bit elements : 0
+Total PLLs : 0

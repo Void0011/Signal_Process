@@ -1,0 +1,1 @@
+Warning (10268): Verilog HDL information at key_filter.v(23): always construct contains both blocking and non-blocking assignments File: F:/Lab_Work/1_Learning/4_Signal_Processing_Code/DownFre/rtl/key_filter.v Line: 23

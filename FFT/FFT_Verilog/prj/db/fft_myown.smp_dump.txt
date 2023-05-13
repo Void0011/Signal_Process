@@ -1,6 +1,18 @@
 
 State Machine - |top|A_RAM:ram1|initial_state
-Name initial_state.convert_finish initial_state.convert_store initial_state.origin_store 
-initial_state.origin_store 0 0 0 
-initial_state.convert_store 0 1 1 
-initial_state.convert_finish 1 0 1 
+Name initial_state.wait_wirte_ok initial_state.convert_finish initial_state.convert initial_state.wait_initial 
+initial_state.wait_initial 0 0 0 0 
+initial_state.wait_wirte_ok 1 0 0 1 
+initial_state.convert 0 0 1 1 
+initial_state.convert_finish 0 1 0 1 
+
+State Machine - |top|A_RAM:ram1|A_index_add
+Name A_index_add.index_add 
+A_index_add.A_wait_initial 0 
+A_index_add.index_add 1 
+
+State Machine - |top|ram_contral:ctrl|state
+Name state.read_finish state.read_addr state.wait_RAM_initial 
+state.wait_RAM_initial 0 0 0 
+state.read_addr 0 1 1 
+state.read_finish 1 0 1 

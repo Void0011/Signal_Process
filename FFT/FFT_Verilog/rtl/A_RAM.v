@@ -1,4 +1,3 @@
-
 module A_RAM(
 		clk,
 		rst,
@@ -7,8 +6,10 @@ module A_RAM(
 		datain_im,
 
 		wr_en,
+		wd_finish,
 		wr_add1,
 		wr_add2,
+		
 		datain_re1,
 		datain_im1,
 		datain_re2,
@@ -17,6 +18,7 @@ module A_RAM(
 		rd_en,
 		rd_add1,
 		rd_add2,
+		
 		dataout_re1,
 		dataout_im1,
 		dataout_re2,
@@ -31,19 +33,30 @@ module A_RAM(
 
 	input 							clk;
 	input							rst;
-	input 							initial_en;//初始化使能信号
-	input 		signed	[23:0]		datain_re;//初试化写入RAM数据的虚、实部
-	input 		signed	[23:0]		datain_im;
+	
+	/*RAM初始化使能信号，也就是数据传输进来的标志*/
+	input 							initial_en;
 
-	input 							wr_en;//写使能信号，当蝶形算子计算完成时，将结果写入RAM对应位置。
-	input 				[2:0]		wr_add1;//写地址信号1,a对应的地址位
-	input 				[2:0]		wr_add2;//写地址信号2,b对应的地址位
-	input 		signed	[23:0]		datain_re1;//写入a数据的虚实部
-	input 		signed	[23:0]		datain_im1;
-	input 		signed	[23:0]		datain_re2;//写入b数据的虚实部
-	input 		signed	[23:0]		datain_im2;
+	/*初试化写入RAM数据的实、虚部*/
+	input 		signed	[23:0]		datain_re,datain_im;
 
-	input 							rd_en;//读使能信号。当蝶形算子计算一次完成并且结果已经写入RAM时，此时发出读使能信号，读出两位数据
+	/*RAM写使能信号，当蝶形算子计算一次后，将结果写入RAM对应地址*/
+	input 							wr_en;
+
+	/*RAM写完成信号，由RAM_Ctrl控制*/
+	input							wd_finish;
+
+	/*写地址:outa对应的地址位wr_add1;outb对应的地址位wr_add2*/
+	input 				[2:0]		wr_add1,wr_add2;
+
+	/*outa对应的虚实部*/
+	input 		signed	[23:0]		datain_re1,datain_im1;
+
+	/*outa对应的虚实部*/
+	input 		signed	[23:0]		datain_re2,datain_im2;
+
+	/*RAM读使能信号。当蝶形算子计算一次完成后，立马发出读使能信号，读出两位数据*/
+	input 							rd_en;
 	input 				[2:0]		rd_add1;//读地址信号1，要读出的a对应的地址位
 	input 				[2:0]		rd_add2;//读地址信号2，要读出的b对应的地址位
 	input 				[2:0]		read_addr;//读地址信号，等待一次FFT计算完毕后，若要取出数据，要读出的地址位
@@ -58,138 +71,164 @@ module A_RAM(
 
 	output	reg  					initial_flag;//初始化完成标志
 	
+	/*数据存储数组,高24位存储实部，低24位存储虚部*/
+    reg 				[47:0]		A_origin[7:0];
 
-	reg 				[11:0]		cnt;
+	/*存储进RAM中的数据index*/
+	reg 				[11:0]		A_index;
 
-	reg 				[47:0]		A_origin[7:0];//A_origin为初始化所储存的数组，高24位存储实部，低24位存储虚部
+	
 
-	reg 				[47:0]		A_convert[7:0];//A_convert为码元倒置后的数组，高24位存储实部，低24位存储虚部
 	integer 						i;//循环RAM使用的整数
-
-
-
 	
-	integer 						cnt_convert;
-	
+	/*初试化RAM状态机参数*/
 	reg 				[2:0] 		initial_state;
-	localparam 						origin_store 	= 3'b001,
-			   						convert_store 	= 3'b010,
+	localparam 						wait_wirte_ok	= 3'b000,
+									wait_initial 	= 3'b001,
+									convert			= 3'b010,
 									convert_finish	= 3'b100;
-	
 
-	/*初始化RAM放入所要求的数据;当检测到初试化使能信号有效时，开始进行初始化，包括完成码元倒置等操作初试化完成后进行码元读取与写入*/
+	/*初试化A_index状态机参数*/
+	reg					[1:0]		A_index_add;
+	localparam 						A_wait_initial	= 2'b01,
+									index_add	 	= 2'b10;
+	/*延迟一拍initial_en，提供给A_index判断开始。目的是为保持A_index与输入数据一致*/
+	reg								initial_en_r;
+
+	wire				[11:0]		A_index_convert;
+	/*clk_rd*/
+	wire							clk_rd			= ~clk;
+
+	/*进行A_index的累加，并且A_index自增同步于clk时钟*/
 	always @(posedge clk or negedge rst)begin
 		if(!rst)begin
-			cnt				<= 'd0;
+			initial_en_r			<= 'd0;
+		end
+		else begin
+			initial_en_r			<= initial_en;
+		end		
+	end
+	always @(posedge clk or negedge rst)begin
+		if(!rst)begin
+			A_index 			    <= 'd0;
+		end
+		else begin
+			case(A_index_add)
+				A_wait_initial:begin
+					if(initial_en_r)begin
+						A_index_add				<= index_add;
+					end
+					else begin
+						A_index_add				<= A_wait_initial;
+					end
+				end
+
+				A_index_add:begin
+					if(A_index == 'd8)begin
+						A_index 			    <= 'd0;
+						A_index_add				<= A_wait_initial;
+					end
+					else begin
+						A_index 				<= A_index + 1'd1;
+						A_index_add				<= index_add;
+					end
+				end
+			endcase
+		end
+	end
+
+	/*A_index码元倒置序号*/
+	assign A_index_convert 						= {A_index[0],A_index[1],A_index[2]};
+
+	/*初试化A_RAM，数据输入与clk保持同步。数据写入A_RAM中的操作与clk_rd保持同步。*/
+	always @(posedge clk_rd or negedge rst)begin
+		if(!rst)begin
 			for(i=0;i<8;i=i+1)begin
 				A_origin[i] 	 	<= 'd0;
-				A_convert[i] 	 	<= 'd0;
+			end		
+			initial_flag			<= 'b0;
+			initial_state			<= wait_initial;
+		end
+		
+		else begin
+			case(initial_state)
+				wait_wirte_ok:begin
+					/*等待上一次FFT计算后的数据写入RAM完成后，再进行初试化*/
+					if(wd_finish)begin
+						initial_state				<= wait_initial;
+					end
+					else begin
+						initial_state				<= wait_wirte_ok;
+					end
+				end
+				wait_initial:begin
+					/*等待初试化使能打开，初试化使能与clk同步，且初试化使能后一个cycle，开始传输数据*/
+					if(initial_en == 1'b1)begin
+						initial_state				<= convert;
+					end
+
+					else begin
+						initial_state 		        <= wait_initial;
+					end
+				end
+
+				convert:begin
+					if(A_index == 'd8)begin
+							initial_state 		    <= convert_finish;
+							initial_flag 	        <= 1'b1;
+						end
+					else begin
+							A_origin[A_index_convert][47:24] 	<= datain_re;
+							A_origin[A_index_convert][23: 0] 	<= datain_im;
+							initial_state 		    <= convert;
+					end
+				end
+
+				convert_finish:begin
+					initial_flag					<= 1'b0;
+					initial_state 		        	<= wait_wirte_ok;
+				end
+			endcase
+
+			/*防止多驱动A_origin，在这里向RAM写入数据*/
+			if(wr_en)begin
+				A_origin[wr_add1][47:24]			<=	datain_re1;
+				A_origin[wr_add1][23:0]				<=	datain_im1;
+				A_origin[wr_add2][47:24]			<=	datain_re2;
+				A_origin[wr_add2][23:0]				<=	datain_im2; 
 			end
 
-			
-			initial_state 	<= origin_store;
-			cnt_convert		<= 'd0;
+		end
+	end
 
+	/*按照clk_rd来读出数据A、B*/
+	always @(posedge clk_rd or negedge rst) begin
+		if(!rst)begin
 			dataout_re1		<= 'd0;
 			dataout_im1		<= 'd0;
 			dataout_re2		<= 'd0;
 			dataout_im2		<= 'd0;
-			initial_flag	<= 'b0;
+			dataout_re		<= 'd0;
+			dataout_im		<= 'd0;
+			
 		end
-		
+
+		else if(rd_en)begin
+			dataout_re1		<= A_origin[rd_add1][47:24];
+			dataout_im1 	<= A_origin[rd_add1][23:0];
+			dataout_re2		<= A_origin[rd_add2][47:24];
+			dataout_im2 	<= A_origin[rd_add2][23:0];
+			dataout_re		<= A_origin[read_addr][47:24];
+			dataout_im	 	<= A_origin[read_addr][23:0];
+		end
+
 		else begin
-			i 				= 0;
-			case (initial_state)
-
-					/*存入原始数据*/
-				origin_store:
-					begin
-						/*等待初始化使能initial_en的到来。并且其需要保持'数据深度'周期之后,方可将数据完全写入到数组A中*/
-						if(initial_en == 1'b1)begin
-							if(cnt == 'd8)begin
-								cnt 			<= 'd0;
-								initial_state 	<= convert_store;
-							end
-							
-							else begin
-								cnt 					<= cnt + 1'd1;
-								A_origin[cnt][47:24] 	<= datain_re;
-								A_origin[cnt][23: 0] 	<= datain_im;
-								initial_state 			<= origin_store;
-							end
-						end
-						else begin
-							initial_state 		<= origin_store;
-						end
-					end
-					/*对存储的数据进行倒序*/
-				convert_store:
-					begin
-					
-						for(cnt_convert = 3'd0;cnt_convert < 8; cnt_convert = cnt_convert+3'd1)begin
-							A_convert[cnt_convert]	<= A_origin[{cnt_convert[0],cnt_convert[1],cnt_convert[2]}];
-							if(cnt_convert == 'd7)begin
-								initial_state 		<= convert_finish;
-								initial_flag		<= 'b1;
-							end
-							else begin
-								initial_state 		<= convert_store;
-							end	
-						end
-				
-						
-					end
-					/*倒序完成之后便可以进行数据的读出、写入*/
-				convert_finish:
-					begin
-						/*读使能信号有效时，写使能信号无效。代表开始一次蝶形运算操作，读出对应的数据，注意与蝶形算子的时序逻辑*/
-						if(rd_en)begin
-							dataout_re1					<= A_convert[rd_add1][47:24];
-							dataout_im1 				<= A_convert[rd_add1][23:0];
-							dataout_re2					<= A_convert[rd_add2][47:24];
-							dataout_im2 				<= A_convert[rd_add2][23:0];
-							dataout_re					<= A_convert[read_addr][47:24];
-							dataout_im	 				<= A_convert[read_addr][23:0];
-						end
-						
-						/*写使能信号有效时，读使能信号无效。代表一次蝶形运算的结束，此时乘法器的计算结果要保持上一组的结果*/
-						else if(wr_en) begin
-							A_convert[wr_add1][47:24]	<=	datain_re1;
-							A_convert[wr_add1][23:0]	<=	datain_im1;
-							A_convert[wr_add2][47:24]	<=	datain_re2;
-							A_convert[wr_add2][23:0]	<=	datain_im2; 
-						end
-
-						/*读写使能均无效的时候，此时表明在蝶形运算周期内，此时保持传递给蝶形算子的数值不变，并保证不会对A进行回写操作*/
-						else begin
-							dataout_re1					<= dataout_re1;
-							dataout_im1					<= dataout_im1;
-							dataout_re2					<= dataout_re2;
-							dataout_im2					<= dataout_im2;
-							A_convert[wr_add1][47:24]	<= A_convert[wr_add1][47:24];
-							A_convert[wr_add1][23:0]	<= A_convert[wr_add1][23:0];
-							A_convert[wr_add2][47:24]	<= A_convert[wr_add2][47:24];
-							A_convert[wr_add2][23:0]	<= A_convert[wr_add2][23:0];
-						end
-					end
-				default:
-					begin
-						for(i=0;i<8;i=i+1)begin
-							A_origin[i] 	 	<= 'd0;
-						end
-						dataout_re1				<= 'd0;
-						dataout_im1				<= 'd0;
-						dataout_re2				<= 'd0;
-						dataout_im2				<= 'd0;
-						initial_state 			<= origin_store;
-						cnt_convert				<= 'd0;
-						initial_flag			<= 'b0;
-					end
-			endcase
-		end
-		
-
-	end   
+			dataout_re1		<= 'd0;
+			dataout_im1		<= 'd0;
+			dataout_re2		<= 'd0;
+			dataout_im2		<= 'd0;
+		end			
+	end
 	
 	
 endmodule 

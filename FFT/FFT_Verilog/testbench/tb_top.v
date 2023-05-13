@@ -18,9 +18,15 @@ module tb_top;
 
     wire 		signed	[23:0]		dataout_re;//读出RAM数据的虚实部
 	wire 		signed	[23:0]		dataout_im;
-    wire                            flag_fftfinish;
+    wire                            fft_finish;
 
+    reg         signed  [47:0]      signal[7:0];
+    integer     i;
 
+    initial
+        begin
+	         $readmemh("F:/Lab_Work/1_Learning/4_Signal_Processing_Code/Signal_Process/FFT/signal.txt",signal);
+        end
 
     top t1(
             .clk(clk),
@@ -33,7 +39,7 @@ module tb_top;
             .read_addr(read_addr),//等计算完毕之后，如果要取出数据，该数据地址位
             .dataout_re(dataout_re),
             .dataout_im(dataout_im),
-            .flag_fftfinish(flag_fftfinish)
+            .fft_finish(fft_finish)
    
     );
 
@@ -52,30 +58,15 @@ module tb_top;
 
         #(`clk_period*20);
         initial_en  =   1;
+        #(`clk_period);
+        initial_en  =   0;
 
-        datain_re   =   'd1;
-        datain_im   =   'd0;
-        #(`clk_period);
-        datain_re   =   'd4;
-        datain_im   =   'd0;
-        #(`clk_period);
-        datain_re   =   'd5;
-        datain_im   =   'd0;
-        #(`clk_period);
-        datain_re   =   'd6;
-        datain_im   =   'd0;
-        #(`clk_period);
-        datain_re   =   'd7;
-        datain_im   =   'd0;
-        #(`clk_period);
-        datain_re   =   'd8;
-        datain_im   =   'd0;
-        #(`clk_period);
-        datain_re   =   'd9;
-        datain_im   =   'd0;
-        #(`clk_period);
-        datain_re   =   'd10;
-        datain_im   =   'd0;
+        for(i=0;i<8;i=i+1)begin
+            @(posedge clk);
+            datain_re   =   signal[i][47:24];
+            datain_im   =   signal[i][23:0];	
+        end
+       
         #(`clk_period*200);
         $stop;
         

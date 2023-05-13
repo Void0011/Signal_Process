@@ -1,15 +1,14 @@
 /*FFT蝶形运算模块
-a_re + j a_im		outa_re - j outa_im ->
-	    	   \    /						outa_re = 
+a_re + j a_im		outa_re + j outa_im 
+	    	   \    /						
     			\  /
 			     \/
 			     /\
   c_re + j c_im /  \
 			   /    \
-b_re + j b_im	    outb_re - j outb_im
+b_re + j b_im	    outb_re + j outb_im
 
 */
-
 
 module butterfly(
 		clk,
@@ -29,9 +28,7 @@ module butterfly(
 		outa_im,
 		
 		outb_re,
-		outb_im,
-
-		butterfly_finish_flag
+		outb_im
 	);
 	
 	input 						clk;
@@ -39,29 +36,39 @@ module butterfly(
 	input 						en;
 
 	
-	/*蝶形算子两个输入*/
+	/*蝶形算子两个输入a、b*/
 	input signed 	[23:0]		a_re,a_im;
 	input signed 	[23:0]		b_re,b_im;
 	
-	/*旋转因子，扩大了2^13*/
+	/*旋转因子，扩大了2^13倍*/
 	input signed 	[15:0]		c_re,c_im;
 	
-	/*蝶形算子两个输出*/
+	/*蝶形算子两个输出outa、outb*/
 	output signed 	[23:0]		outa_re,outa_im;
 	output signed 	[23:0]		outb_re,outb_im;
 
-	/*当完成一次蝶形算子时发出标志信号*/
-	output reg 					butterfly_finish_flag;
 	
+	
+	/*使能寄存信号*/
 	reg 			[3:0]		en_r;
+
+	/*乘法器输出连接信号*/
 	wire signed		[39:0]		b_re_c_re,b_re_c_im,b_im_c_im,b_im_c_re;
-	reg	 signed		[39:0]		a_re_mid,a_im_mid;
-	reg	 signed		[39:0]		a_re_mid_n1,a_im_mid_n1;//多打一拍
 	
-	reg  signed		[39:0]		a_re_addend,a_im_addend;//b_re*c_re - b_im*c_im    b_im*c_re+b_re*c_im
+	/*输入a扩大位宽之后的信号*/
+	reg	 signed		[39:0]		a_re_mid,a_im_mid;
+
+	/*a扩大位宽后，寄存一拍信号*/
+	reg	 signed		[39:0]		a_re_mid_n1,a_im_mid_n1;
+	
+	/*
+	a_re_addend = b_re_c_re - b_im_c_im
+	a_im_addend = b_im_c_re + b_re_c_im
+	*/
+	reg  signed		[39:0]		a_re_addend,a_im_addend;//   
 	reg	 signed		[39:0]		outa_re_mid,outa_im_mid,outb_re_mid,outb_im_mid;
 	
-	/*对使能信号进行延迟一拍*/
+	/*对使能信号en进行延迟一拍*/
 	always @(posedge clk or negedge rst)begin
 		if(!rst)begin
 			en_r <= 'd0;
@@ -111,7 +118,7 @@ module butterfly(
 		.result(b_im_c_re)
 	);
 	
-	/*固定a_re,a_im的位宽为40，便于之后的运算*/
+	/*固定a_re,a_im的位宽为40，便于之后的运算。使用assign可以吗？*/
 	always @(posedge clk or negedge rst)begin
 		if(!rst)begin
 			a_re_mid <= 'd0;
@@ -124,63 +131,70 @@ module butterfly(
 		end
 		
 		else begin
-			a_re_mid <= a_re_mid;
-			a_im_mid <= a_im_mid;
+			a_re_mid <= 'd0;
+			a_im_mid <= 'd0;
 		end
 	end
 	
-	/*完成数据a_re,a_im的寄存一拍，并且完成a_re、a_im所要加减的数值运算*/
+	/*
+	数据a_re_mid,a_im_mid寄存一拍，与a_re_addend、a_im_addend运算结果保持时钟同步。是否画蛇添足？
+	并没有额外加入寄存器，因为如果不延迟一拍，可能第一个数据计算结果是对的，但是从第二个开始就错误了。
+	无法完成流水线工作。
+	
+	*/
 	always @(posedge clk or negedge rst)begin
 		if(!rst)begin
 			a_re_addend <= 'd0;
 			a_im_addend <= 'd0;
+
 			a_re_mid_n1 <= 'd0;
 			a_im_mid_n1	<= 'd0;
 		end
-		else if(en)begin
-			a_re_mid_n1 <= a_re_mid;
-			a_im_mid_n1 <= a_im_mid;//延迟打一拍的作用不会影响下面的计算吗？？？
-			a_re_addend <= b_re_c_re - b_im_c_im;//之所以在这里完成减法和加法，是防止位溢出
+		else if(en_r[0])begin
+			/*怎么防止加减导致位溢出？*/
+			a_re_addend <= b_re_c_re - b_im_c_im;
 			a_im_addend <= b_im_c_re + b_re_c_im;
+			
+			a_re_mid_n1 <= a_re_mid;
+			a_im_mid_n1 <= a_im_mid;		
 		end
 		else begin
-			a_re_addend <= a_re_addend;
-			a_im_addend <= a_im_addend;
-			a_re_mid_n1 <= a_re_mid_n1;
-			a_im_mid_n1	<= a_im_mid_n1;
+			a_re_addend <= 'd0;
+			a_im_addend <= 'd0;
+
+			a_re_mid_n1 <= 'd0;
+			a_im_mid_n1	<= 'd0;
 		end
 	end
 	
-	/*完成所要输出的a_re、b_re计算，但是注意这里是40位的运算*/
+	/*完成的同步值a_re_mid_n1、a_re_mid_n1与a_re_addend、a_im_addend，进行40位的运算*/
 	always @(posedge clk or negedge rst)begin
 		if(!rst)begin
 			outa_re_mid	<= 'd0;
 			outa_im_mid <= 'd0;
 			outb_re_mid <= 'd0;
 			outb_im_mid <= 'd0;
-			butterfly_finish_flag <= 1'b0;
+			
 		end
-		else if(en_r[1])begin			//使能信号依据延迟一拍的信号，等待a_re_mid_n1、a_im_mid_n1、a_re_addend、a_im_addend信号计算完毕
+		/*a_re_mid_n1、a_im_mid_n1、a_re_addend、a_im_addend信号计算完毕时，相对en已延迟一个cycle。使用en_r[1]*/
+		else if(en_r[1])begin			
 			outa_re_mid <= a_re_mid_n1 + a_re_addend;
 			outa_im_mid <= a_im_mid_n1 + a_im_addend;
 			outb_re_mid <= a_re_mid_n1 - a_re_addend;
 			outb_im_mid <= a_im_mid_n1 - a_im_addend;
 
-			butterfly_finish_flag <= 1'b1;
-
 		end
 		else begin
-			outa_re_mid	<= outa_re_mid;
-			outa_im_mid <= outa_im_mid;
-			outb_re_mid <= outb_re_mid;
-			outb_im_mid <= outb_im_mid;
+			outa_re_mid	<= 'd0;
+			outa_im_mid <= 'd0;
+			outb_re_mid <= 'd0;
+			outb_im_mid <= 'd0;
 
-			butterfly_finish_flag <= 1'b0;
 		end
 	end
 
-	/*蝶形运算后的outa*/
-	assign outa_re = {outa_re_mid[39],outa_re_mid[35:13]};//取最高位[39]作为符号位，并移除移位的13个0
+	/*蝶形运算后的outa,取最高位[39]作为符号位，并移除扩大移位产生的13个0*/
+	assign outa_re = {outa_re_mid[39],outa_re_mid[35:13]};
 	assign outa_im = {outa_im_mid[39],outa_im_mid[35:13]};
 	
 	/*蝶形运算后的outb*/

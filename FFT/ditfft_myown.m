@@ -1,4 +1,4 @@
-function output = ditfft_myown(x_n,N)
+function [output1,output2,output3,output4] = ditfft_myown(x_n,N)
 %x_n is the input arrary,N is the fft points
 x_origin = x_n;
 len = length(x_n);
@@ -9,9 +9,9 @@ if(len<N)                         %如果序列长度不够，进行补零操作
 end
 nxd = bin2dec(fliplr(dec2bin([1:N]-1,m)))+1;    %将坐标进行倒序操作
 x_n = x_n(nxd);
-A=zeros(1,N);                   %创建一个全零数组A，长度为N，保存每级蝶形运算计算的结果
+A=zeros(N,4);                   %创建一个全零数组A，深度为N，保存每级蝶形运算计算的结果
 for i = 1:N
-    A(i) = x_n(i);                  %将原始序列作为A_0数据
+    A(i,1) = x_n(1,i);                  %将原始序列作为A_0数据
 end
     %算法流程为:
     %A_L(J)       = A_L-1(J) + W*A_L-1(J+B);
@@ -32,13 +32,16 @@ end
               W = exp(-j*2*pi*P/N);
               for k = (J+1) : 2^L :N         %当J固定时，代表下面蝶形算子所使用的旋转因子均一致.
                                                         %这里的循环，则是将旋转因子一致的蝶形算子全部计算出来  
-                  A_mid = A(k) + A(k+B)*W;    %A_mid是用来防止计算改变A(k)中的值，影响A(k+B)的计算
-                  A(k+B) = A(k) - A(k+B)*W;
-                  A(k) = A_mid;
+                  A_mid = A(k,L) + A(k+B,L)*W;    %A_mid是用来防止计算改变A(k)中的值，影响A(k+B)的计算
+                  A(k+B,L+1) = A(k,L) - A(k+B,L)*W;
+                  A(k,L+1) = A_mid;
               end
         end
     end
-    output = A;
+   output1 = floor(A(:,1));
+   output2 = floor(A(:,2));
+   output3 = floor(A(:,3));
+   output4 = floor(A(:,4));
     
        
     subplot(2,1,1);%在第1行绘制FFT内置函数
@@ -49,9 +52,9 @@ end
      title('内置FFT');
      
     subplot(2,1,2);%在第2行绘制FFT手写函数
-    [x2,y2]=size(output);%数组列序号作为横坐标
+    [x2,y2]=size(output4');%数组列序号作为横坐标
     y2_mid = 1:y2;
-    stem(y2_mid,abs(output),'.');
+    stem(y2_mid,abs(output4'),'.');
     title('手写FFT');
                     
                     

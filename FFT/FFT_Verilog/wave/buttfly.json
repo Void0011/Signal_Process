@@ -1,0 +1,98 @@
+{
+    "signal": [
+    { "name": "clk", "wave": "P........." },
+  ["RAM_Ctrl",      
+    { "name": "en","wave":"01.......","phase":"0.5"},
+  
+    {"name":"rd_en",
+    "wave":"01......."
+    }, 
+    
+    {
+    "name":"r_addr",
+    "wave":"23456|...",
+    "data": ["0","addr1", "addr2", "addr3","addr4"]
+    }
+  ],
+  {},
+  ["Syn with clk_rd",
+    { "name": "clk_rd", "wave": "P.........","phase":"0.5"},
+    { "name": "a_re",
+     "wave": "2.3456.|..", 
+    "data": ["0","ar1", "ar2", "ar3","ar4"],
+    "phase" :"0.5"   
+    }
+  ],
+  {},
+  {},
+  ["Syn with clk",
+    { "name": "a_re_mid(*2^13)",
+    "wave": "2.3456.|..", 
+   "data": ["0", "ar1'", "ar2'", "ar3'","ar4'"]  
+   },
+
+   { "name": "a_re_mid_n1",
+    "wave": "2..3456|..", 
+   "data": ["0", "ar1'", "ar2'", "ar3'","ar4'"]  
+   }
+  ],
+  {},
+  ["Syn with clk_rd",
+   { "name": "b_re",
+     "wave": "2.3456|...", 
+    "data": ["0","br1", "br2", "br3","br4"],
+    "phase" :"0.5"   
+    },
+
+    { "name": "c_re_ctr",
+    "wave": "23456|...", 
+   "data": ["0","cr1", "cr2", "cr3","cr4"]   
+   },
+
+    { "name": "c_re",
+    "wave": "2.3456|...", 
+   "data": ["0","cr1", "cr2", "cr3","cr4"],
+   "phase" :"0.5"   
+   }
+  ],
+
+  {},
+
+   ["Syn with clk",
+   { "name": "b_re_c_re",
+    "wave": "2.3456|...", 
+   "data": ["0","bcr1", "bcr2", "bcr3","bcr4"]   
+   },
+   { "name": "a_re_addend",
+    "wave": "2..3456|..", 
+   "data": ["0","ar'_d1", "ar'_d2", "ar'_d3","ar'_d4"]   
+   },
+   { "name": "outa_re",
+    "wave": "2...3456|.", 
+   "data": ["0","outa1", "outa2", "outa3","outa4"]   
+   }
+  ],
+
+  {},
+
+  ["RAM_Ctrl",
+  {"name":"wr_en",
+    "wave":"0...1....." 
+  }, 
+  {
+    "name":"w_addr",
+    "wave":"2...3456|.",
+    "data": ["0","addr1", "addr2", "addr3","addr4"]
+  }
+  ]
+  ],
+    "config": {"skin":"default"},
+    "head":{"tick":1},
+    "foot":{
+      "text":"Buttfly_pipeline"
+    }
+    
+  
+ 
+  
+}

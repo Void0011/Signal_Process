@@ -1,0 +1,70 @@
+onerror {resume}
+quietly virtual function -install /tb_top/t1/butterfly1 -env /tb_top/t1/butterfly1/#ALWAYS#145 { &{/tb_top/t1/butterfly1/a_im_mid_n1[39], /tb_top/t1/butterfly1/a_im_mid_n1[35], /tb_top/t1/butterfly1/a_im_mid_n1[34], /tb_top/t1/butterfly1/a_im_mid_n1[33], /tb_top/t1/butterfly1/a_im_mid_n1[32], /tb_top/t1/butterfly1/a_im_mid_n1[31], /tb_top/t1/butterfly1/a_im_mid_n1[30], /tb_top/t1/butterfly1/a_im_mid_n1[29], /tb_top/t1/butterfly1/a_im_mid_n1[28], /tb_top/t1/butterfly1/a_im_mid_n1[27], /tb_top/t1/butterfly1/a_im_mid_n1[26], /tb_top/t1/butterfly1/a_im_mid_n1[25], /tb_top/t1/butterfly1/a_im_mid_n1[24], /tb_top/t1/butterfly1/a_im_mid_n1[23], /tb_top/t1/butterfly1/a_im_mid_n1[22], /tb_top/t1/butterfly1/a_im_mid_n1[21], /tb_top/t1/butterfly1/a_im_mid_n1[20], /tb_top/t1/butterfly1/a_im_mid_n1[19], /tb_top/t1/butterfly1/a_im_mid_n1[18], /tb_top/t1/butterfly1/a_im_mid_n1[17], /tb_top/t1/butterfly1/a_im_mid_n1[16], /tb_top/t1/butterfly1/a_im_mid_n1[15], /tb_top/t1/butterfly1/a_im_mid_n1[14], /tb_top/t1/butterfly1/a_im_mid_n1[13] }} a_im_mid_n1_real
+quietly virtual function -install /tb_top/t1/butterfly1 -env /tb_top/t1/butterfly1/#ALWAYS#145 { &{/tb_top/t1/butterfly1/a_re_mid_n1[39], /tb_top/t1/butterfly1/a_re_mid_n1[35], /tb_top/t1/butterfly1/a_re_mid_n1[34], /tb_top/t1/butterfly1/a_re_mid_n1[33], /tb_top/t1/butterfly1/a_re_mid_n1[32], /tb_top/t1/butterfly1/a_re_mid_n1[31], /tb_top/t1/butterfly1/a_re_mid_n1[30], /tb_top/t1/butterfly1/a_re_mid_n1[29], /tb_top/t1/butterfly1/a_re_mid_n1[28], /tb_top/t1/butterfly1/a_re_mid_n1[27], /tb_top/t1/butterfly1/a_re_mid_n1[26], /tb_top/t1/butterfly1/a_re_mid_n1[25], /tb_top/t1/butterfly1/a_re_mid_n1[24], /tb_top/t1/butterfly1/a_re_mid_n1[23], /tb_top/t1/butterfly1/a_re_mid_n1[22], /tb_top/t1/butterfly1/a_re_mid_n1[21], /tb_top/t1/butterfly1/a_re_mid_n1[20], /tb_top/t1/butterfly1/a_re_mid_n1[19], /tb_top/t1/butterfly1/a_re_mid_n1[18], /tb_top/t1/butterfly1/a_re_mid_n1[17], /tb_top/t1/butterfly1/a_re_mid_n1[16], /tb_top/t1/butterfly1/a_re_mid_n1[15], /tb_top/t1/butterfly1/a_re_mid_n1[14], /tb_top/t1/butterfly1/a_re_mid_n1[13] }} a_re_mid_n1_real
+quietly WaveActivateNextPane {} 0
+add wave -noupdate /tb_top/clk
+add wave -noupdate /tb_top/rst
+add wave -noupdate /tb_top/initial_en
+add wave -noupdate /tb_top/datain_re
+add wave -noupdate /tb_top/datain_im
+add wave -noupdate -radix hexadecimal -childformat {{{/tb_top/t1/ram1/A_origin[7]} -radix hexadecimal} {{/tb_top/t1/ram1/A_origin[6]} -radix hexadecimal} {{/tb_top/t1/ram1/A_origin[5]} -radix hexadecimal} {{/tb_top/t1/ram1/A_origin[4]} -radix hexadecimal} {{/tb_top/t1/ram1/A_origin[3]} -radix hexadecimal} {{/tb_top/t1/ram1/A_origin[2]} -radix hexadecimal} {{/tb_top/t1/ram1/A_origin[1]} -radix hexadecimal} {{/tb_top/t1/ram1/A_origin[0]} -radix hexadecimal}} -subitemconfig {{/tb_top/t1/ram1/A_origin[7]} {-height 15 -radix hexadecimal} {/tb_top/t1/ram1/A_origin[6]} {-height 15 -radix hexadecimal} {/tb_top/t1/ram1/A_origin[5]} {-height 15 -radix hexadecimal} {/tb_top/t1/ram1/A_origin[4]} {-height 15 -radix hexadecimal} {/tb_top/t1/ram1/A_origin[3]} {-height 15 -radix hexadecimal} {/tb_top/t1/ram1/A_origin[2]} {-height 15 -radix hexadecimal} {/tb_top/t1/ram1/A_origin[1]} {-height 15 -radix hexadecimal} {/tb_top/t1/ram1/A_origin[0]} {-height 15 -radix hexadecimal}} /tb_top/t1/ram1/A_origin
+add wave -noupdate /tb_top/dataout_re
+add wave -noupdate /tb_top/dataout_im
+add wave -noupdate /tb_top/fft_finish
+add wave -noupdate /tb_top/t1/ctrl/state
+add wave -noupdate /tb_top/t1/ctrl/initial_flag
+add wave -noupdate -radix unsigned /tb_top/t1/ctrl/rd_add1
+add wave -noupdate -radix unsigned /tb_top/t1/ctrl/rd_add2
+add wave -noupdate /tb_top/t1/ram1/rd_en
+add wave -noupdate /tb_top/t1/butterfly1/a_re
+add wave -noupdate /tb_top/t1/butterfly1/a_im
+add wave -noupdate /tb_top/t1/butterfly1/en
+add wave -noupdate {/tb_top/t1/butterfly1/en_r[0]}
+add wave -noupdate {/tb_top/t1/butterfly1/en_r[1]}
+add wave -noupdate /tb_top/t1/butterfly1/b_re
+add wave -noupdate /tb_top/t1/butterfly1/b_im
+add wave -noupdate /tb_top/t1/butterfly1/c_re
+add wave -noupdate /tb_top/t1/butterfly1/c_im
+add wave -noupdate /tb_top/t1/butterfly1/a_re_mid
+add wave -noupdate /tb_top/t1/butterfly1/a_im_mid
+add wave -noupdate /tb_top/t1/butterfly1/a_re_mid_n1
+add wave -noupdate /tb_top/t1/butterfly1/a_im_mid_n1
+add wave -noupdate /tb_top/t1/butterfly1/b_re_c_re
+add wave -noupdate /tb_top/t1/butterfly1/b_re_c_im
+add wave -noupdate /tb_top/t1/butterfly1/b_im_c_im
+add wave -noupdate /tb_top/t1/butterfly1/b_im_c_re
+add wave -noupdate -radix decimal /tb_top/t1/butterfly1/a_re_mid_n1_real
+add wave -noupdate -radix decimal /tb_top/t1/butterfly1/a_im_mid_n1_real
+add wave -noupdate /tb_top/t1/butterfly1/a_re_addend
+add wave -noupdate /tb_top/t1/butterfly1/a_im_addend
+add wave -noupdate /tb_top/t1/butterfly1/outa_re_mid
+add wave -noupdate /tb_top/t1/butterfly1/outa_im_mid
+add wave -noupdate /tb_top/t1/butterfly1/outb_re_mid
+add wave -noupdate /tb_top/t1/butterfly1/outb_im_mid
+add wave -noupdate /tb_top/t1/butterfly1/outa_re
+add wave -noupdate /tb_top/t1/butterfly1/outa_im
+add wave -noupdate /tb_top/t1/butterfly1/outb_re
+add wave -noupdate /tb_top/t1/butterfly1/outb_im
+add wave -noupdate /tb_top/t1/ctrl/wr_en
+add wave -noupdate -radix unsigned /tb_top/t1/ctrl/wr_add1
+add wave -noupdate -radix unsigned /tb_top/t1/ctrl/wr_add2
+add wave -noupdate /tb_top/t1/ram1/clk_rd
+add wave -noupdate /tb_top/t1/ctrl/wd_finish
+add wave -noupdate /tb_top/t1/ram1/initial_state
+TreeUpdate [SetDefaultTree]
+WaveRestoreCursors {{Cursor 1} {1100705 ps} 0} {{Cursor 2} {1350000 ps} 0}
+configure wave -namecolwidth 215
+configure wave -valuecolwidth 100
+configure wave -justifyvalue left
+configure wave -signalnamewidth 1
+configure wave -snapdistance 10
+configure wave -datasetprefix 0
+configure wave -rowmargin 4
+configure wave -childrowmargin 2
+configure wave -gridoffset 0
+configure wave -gridperiod 1
+configure wave -griddelta 40
+configure wave -timeline 0
+configure wave -timelineunits ns
+update
+WaveRestoreZoom {584803 ps} {1499357 ps}

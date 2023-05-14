@@ -1,5 +1,5 @@
 Analysis & Elaboration report for fft_myown
-Sat May 13 13:13:25 2023
+Sun May 14 18:19:44 2023
 Quartus Prime Version 18.0.0 Build 614 04/24/2018 SJ Standard Edition
 
 
@@ -10,14 +10,17 @@ Quartus Prime Version 18.0.0 Build 614 04/24/2018 SJ Standard Edition
   2. Analysis & Elaboration Summary
   3. Parallel Compilation
   4. Analysis & Elaboration IP Cores Summary
-  5. Parameter Settings for User Entity Instance: ram_contral:ctrl
-  6. Parameter Settings for User Entity Instance: butterfly:butterfly1|ip_multi:mult0|lpm_mult:lpm_mult_component
-  7. Parameter Settings for User Entity Instance: butterfly:butterfly1|ip_multi:mult1|lpm_mult:lpm_mult_component
-  8. Parameter Settings for User Entity Instance: butterfly:butterfly1|ip_multi:mult2|lpm_mult:lpm_mult_component
-  9. Parameter Settings for User Entity Instance: butterfly:butterfly1|ip_multi:mult3|lpm_mult:lpm_mult_component
- 10. lpm_mult Parameter Settings by Entity Instance
- 11. Analysis & Elaboration Settings
- 12. Analysis & Elaboration Messages
+  5. Parameter Settings for User Entity Instance: Top-level Entity: |top
+  6. Parameter Settings for User Entity Instance: ram_contral:ctrl
+  7. Parameter Settings for User Entity Instance: A_RAM:ram1
+  8. Parameter Settings for User Entity Instance: butterfly:butterfly1|ip_multi:mult0|lpm_mult:lpm_mult_component
+  9. Parameter Settings for User Entity Instance: butterfly:butterfly1|ip_multi:mult1|lpm_mult:lpm_mult_component
+ 10. Parameter Settings for User Entity Instance: butterfly:butterfly1|ip_multi:mult2|lpm_mult:lpm_mult_component
+ 11. Parameter Settings for User Entity Instance: butterfly:butterfly1|ip_multi:mult3|lpm_mult:lpm_mult_component
+ 12. lpm_mult Parameter Settings by Entity Instance
+ 13. Analysis & Elaboration Settings
+ 14. Analysis & Elaboration Messages
+ 15. Analysis & Elaboration Suppressed Messages
 
 
 
@@ -43,7 +46,7 @@ refer to the applicable agreement for further details.
 +--------------------------------------------------------------------------------------+
 ; Analysis & Elaboration Summary                                                       ;
 +------------------------------------+-------------------------------------------------+
-; Analysis & Elaboration Status      ; Successful - Sat May 13 13:13:25 2023           ;
+; Analysis & Elaboration Status      ; Successful - Sun May 14 18:19:44 2023           ;
 ; Quartus Prime Version              ; 18.0.0 Build 614 04/24/2018 SJ Standard Edition ;
 ; Revision Name                      ; fft_myown                                       ;
 ; Top-level Entity Name              ; top                                             ;
@@ -88,14 +91,36 @@ refer to the applicable agreement for further details.
 +--------+--------------+---------+--------------+--------------+------------------------------------------+-----------------+
 
 
++---------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: Top-level Entity: |top ;
++----------------+-------+--------------------------------------------+
+; Parameter Name ; Value ; Type                                       ;
++----------------+-------+--------------------------------------------+
+; N              ; 512   ; Signed Integer                             ;
+; L_max          ; 9     ; Signed Integer                             ;
++----------------+-------+--------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
 +---------------------------------------------------------------+
 ; Parameter Settings for User Entity Instance: ram_contral:ctrl ;
 +----------------+-------+--------------------------------------+
 ; Parameter Name ; Value ; Type                                 ;
 +----------------+-------+--------------------------------------+
-; N              ; 8     ; Signed Integer                       ;
-; L_max          ; 3     ; Signed Integer                       ;
+; N              ; 512   ; Signed Integer                       ;
+; L_max          ; 9     ; Signed Integer                       ;
 +----------------+-------+--------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++---------------------------------------------------------+
+; Parameter Settings for User Entity Instance: A_RAM:ram1 ;
++----------------+-------+--------------------------------+
+; Parameter Name ; Value ; Type                           ;
++----------------+-------+--------------------------------+
+; N              ; 512   ; Signed Integer                 ;
+; L_max          ; 9     ; Signed Integer                 ;
++----------------+-------+--------------------------------+
 Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
 
 
@@ -384,7 +409,7 @@ Note: In order to hide this table in the UI and the text report file, please set
 Info: *******************************************************************
 Info: Running Quartus Prime Analysis & Elaboration
     Info: Version 18.0.0 Build 614 04/24/2018 SJ Standard Edition
-    Info: Processing started: Sat May 13 13:13:14 2023
+    Info: Processing started: Sun May 14 18:19:24 2023
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off fft_myown -c fft_myown --analysis_and_elaboration
 Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
 Info (20030): Parallel compilation is enabled and will use 4 of the 4 processors detected
@@ -405,29 +430,24 @@ Info (12021): Found 1 design units, including 1 entities, in source file /lab_wo
 Info (12021): Found 1 design units, including 1 entities, in source file ip/ip_multi.v
     Info (12023): Found entity 1: ip_multi File: F:/Lab_Work/1_Learning/4_Signal_Processing_Code/Signal_Process/FFT/FFT_Verilog/prj/ip/ip_multi.v Line: 39
 Info (12127): Elaborating entity "top" for the top level hierarchy
-Info (12128): Elaborating entity "ram_contral" for hierarchy "ram_contral:ctrl" File: F:/Lab_Work/1_Learning/4_Signal_Processing_Code/Signal_Process/FFT/FFT_Verilog/rtl/top.v Line: 61
-Warning (10850): Verilog HDL warning at ram_contral.v(87): number of words (4) in memory file does not match the number of elements in the address range [0:255] File: F:/Lab_Work/1_Learning/4_Signal_Processing_Code/Signal_Process/FFT/FFT_Verilog/rtl/ram_contral.v Line: 87
-Warning (10230): Verilog HDL assignment warning at ram_contral.v(93): truncated value with size 32 to match size of target (10) File: F:/Lab_Work/1_Learning/4_Signal_Processing_Code/Signal_Process/FFT/FFT_Verilog/rtl/ram_contral.v Line: 93
-Warning (10230): Verilog HDL assignment warning at ram_contral.v(98): truncated value with size 32 to match size of target (10) File: F:/Lab_Work/1_Learning/4_Signal_Processing_Code/Signal_Process/FFT/FFT_Verilog/rtl/ram_contral.v Line: 98
-Warning (10230): Verilog HDL assignment warning at ram_contral.v(172): truncated value with size 10 to match size of target (3) File: F:/Lab_Work/1_Learning/4_Signal_Processing_Code/Signal_Process/FFT/FFT_Verilog/rtl/ram_contral.v Line: 172
-Warning (10230): Verilog HDL assignment warning at ram_contral.v(173): truncated value with size 10 to match size of target (3) File: F:/Lab_Work/1_Learning/4_Signal_Processing_Code/Signal_Process/FFT/FFT_Verilog/rtl/ram_contral.v Line: 173
-Warning (10230): Verilog HDL assignment warning at ram_contral.v(192): truncated value with size 10 to match size of target (3) File: F:/Lab_Work/1_Learning/4_Signal_Processing_Code/Signal_Process/FFT/FFT_Verilog/rtl/ram_contral.v Line: 192
-Warning (10230): Verilog HDL assignment warning at ram_contral.v(193): truncated value with size 10 to match size of target (3) File: F:/Lab_Work/1_Learning/4_Signal_Processing_Code/Signal_Process/FFT/FFT_Verilog/rtl/ram_contral.v Line: 193
-Warning (10230): Verilog HDL assignment warning at ram_contral.v(203): truncated value with size 32 to match size of target (4) File: F:/Lab_Work/1_Learning/4_Signal_Processing_Code/Signal_Process/FFT/FFT_Verilog/rtl/ram_contral.v Line: 203
-Warning (10230): Verilog HDL assignment warning at ram_contral.v(214): truncated value with size 32 to match size of target (2) File: F:/Lab_Work/1_Learning/4_Signal_Processing_Code/Signal_Process/FFT/FFT_Verilog/rtl/ram_contral.v Line: 214
-Warning (10230): Verilog HDL assignment warning at ram_contral.v(222): truncated value with size 32 to match size of target (2) File: F:/Lab_Work/1_Learning/4_Signal_Processing_Code/Signal_Process/FFT/FFT_Verilog/rtl/ram_contral.v Line: 222
-Warning (10230): Verilog HDL assignment warning at ram_contral.v(242): truncated value with size 10 to match size of target (3) File: F:/Lab_Work/1_Learning/4_Signal_Processing_Code/Signal_Process/FFT/FFT_Verilog/rtl/ram_contral.v Line: 242
-Warning (10230): Verilog HDL assignment warning at ram_contral.v(243): truncated value with size 10 to match size of target (3) File: F:/Lab_Work/1_Learning/4_Signal_Processing_Code/Signal_Process/FFT/FFT_Verilog/rtl/ram_contral.v Line: 243
-Warning (10230): Verilog HDL assignment warning at ram_contral.v(248): truncated value with size 32 to match size of target (10) File: F:/Lab_Work/1_Learning/4_Signal_Processing_Code/Signal_Process/FFT/FFT_Verilog/rtl/ram_contral.v Line: 248
-Warning (10230): Verilog HDL assignment warning at ram_contral.v(249): truncated value with size 32 to match size of target (10) File: F:/Lab_Work/1_Learning/4_Signal_Processing_Code/Signal_Process/FFT/FFT_Verilog/rtl/ram_contral.v Line: 249
-Warning (10230): Verilog HDL assignment warning at ram_contral.v(253): truncated value with size 16 to match size of target (10) File: F:/Lab_Work/1_Learning/4_Signal_Processing_Code/Signal_Process/FFT/FFT_Verilog/rtl/ram_contral.v Line: 253
-Warning (10230): Verilog HDL assignment warning at ram_contral.v(262): truncated value with size 32 to match size of target (2) File: F:/Lab_Work/1_Learning/4_Signal_Processing_Code/Signal_Process/FFT/FFT_Verilog/rtl/ram_contral.v Line: 262
-Warning (10030): Net "factor_rom.data_a" at ram_contral.v(84) has no driver or initial value, using a default initial value '0' File: F:/Lab_Work/1_Learning/4_Signal_Processing_Code/Signal_Process/FFT/FFT_Verilog/rtl/ram_contral.v Line: 84
-Warning (10030): Net "factor_rom.waddr_a" at ram_contral.v(84) has no driver or initial value, using a default initial value '0' File: F:/Lab_Work/1_Learning/4_Signal_Processing_Code/Signal_Process/FFT/FFT_Verilog/rtl/ram_contral.v Line: 84
-Warning (10030): Net "factor_rom.we_a" at ram_contral.v(84) has no driver or initial value, using a default initial value '0' File: F:/Lab_Work/1_Learning/4_Signal_Processing_Code/Signal_Process/FFT/FFT_Verilog/rtl/ram_contral.v Line: 84
-Info (12128): Elaborating entity "A_RAM" for hierarchy "A_RAM:ram1" File: F:/Lab_Work/1_Learning/4_Signal_Processing_Code/Signal_Process/FFT/FFT_Verilog/rtl/top.v Line: 92
-Warning (10240): Verilog HDL Always Construct warning at A_RAM.v(144): inferring latch(es) for variable "i", which holds its previous value in one or more paths through the always construct File: F:/Lab_Work/1_Learning/4_Signal_Processing_Code/Signal_Process/FFT/FFT_Verilog/rtl/A_RAM.v Line: 144
-Info (12128): Elaborating entity "butterfly" for hierarchy "butterfly:butterfly1" File: F:/Lab_Work/1_Learning/4_Signal_Processing_Code/Signal_Process/FFT/FFT_Verilog/rtl/top.v Line: 113
+Info (12128): Elaborating entity "ram_contral" for hierarchy "ram_contral:ctrl" File: F:/Lab_Work/1_Learning/4_Signal_Processing_Code/Signal_Process/FFT/FFT_Verilog/rtl/top.v Line: 66
+Warning (10850): Verilog HDL warning at ram_contral.v(87): number of words (256) in memory file does not match the number of elements in the address range [0:256] File: F:/Lab_Work/1_Learning/4_Signal_Processing_Code/Signal_Process/FFT/FFT_Verilog/rtl/ram_contral.v Line: 87
+Warning (10230): Verilog HDL assignment warning at ram_contral.v(94): truncated value with size 32 to match size of target (9) File: F:/Lab_Work/1_Learning/4_Signal_Processing_Code/Signal_Process/FFT/FFT_Verilog/rtl/ram_contral.v Line: 94
+Warning (10230): Verilog HDL assignment warning at ram_contral.v(98): truncated value with size 32 to match size of target (9) File: F:/Lab_Work/1_Learning/4_Signal_Processing_Code/Signal_Process/FFT/FFT_Verilog/rtl/ram_contral.v Line: 98
+Warning (10230): Verilog HDL assignment warning at ram_contral.v(101): truncated value with size 32 to match size of target (9) File: F:/Lab_Work/1_Learning/4_Signal_Processing_Code/Signal_Process/FFT/FFT_Verilog/rtl/ram_contral.v Line: 101
+Warning (10230): Verilog HDL assignment warning at ram_contral.v(107): truncated value with size 9 to match size of target (8) File: F:/Lab_Work/1_Learning/4_Signal_Processing_Code/Signal_Process/FFT/FFT_Verilog/rtl/ram_contral.v Line: 107
+Warning (10230): Verilog HDL assignment warning at ram_contral.v(207): truncated value with size 32 to match size of target (4) File: F:/Lab_Work/1_Learning/4_Signal_Processing_Code/Signal_Process/FFT/FFT_Verilog/rtl/ram_contral.v Line: 207
+Warning (10230): Verilog HDL assignment warning at ram_contral.v(218): truncated value with size 32 to match size of target (2) File: F:/Lab_Work/1_Learning/4_Signal_Processing_Code/Signal_Process/FFT/FFT_Verilog/rtl/ram_contral.v Line: 218
+Warning (10230): Verilog HDL assignment warning at ram_contral.v(226): truncated value with size 32 to match size of target (2) File: F:/Lab_Work/1_Learning/4_Signal_Processing_Code/Signal_Process/FFT/FFT_Verilog/rtl/ram_contral.v Line: 226
+Warning (10230): Verilog HDL assignment warning at ram_contral.v(252): truncated value with size 32 to match size of target (9) File: F:/Lab_Work/1_Learning/4_Signal_Processing_Code/Signal_Process/FFT/FFT_Verilog/rtl/ram_contral.v Line: 252
+Warning (10230): Verilog HDL assignment warning at ram_contral.v(253): truncated value with size 32 to match size of target (9) File: F:/Lab_Work/1_Learning/4_Signal_Processing_Code/Signal_Process/FFT/FFT_Verilog/rtl/ram_contral.v Line: 253
+Warning (10230): Verilog HDL assignment warning at ram_contral.v(257): truncated value with size 16 to match size of target (9) File: F:/Lab_Work/1_Learning/4_Signal_Processing_Code/Signal_Process/FFT/FFT_Verilog/rtl/ram_contral.v Line: 257
+Warning (10230): Verilog HDL assignment warning at ram_contral.v(266): truncated value with size 32 to match size of target (2) File: F:/Lab_Work/1_Learning/4_Signal_Processing_Code/Signal_Process/FFT/FFT_Verilog/rtl/ram_contral.v Line: 266
+Warning (10030): Net "factor_rom.data_a" at ram_contral.v(83) has no driver or initial value, using a default initial value '0' File: F:/Lab_Work/1_Learning/4_Signal_Processing_Code/Signal_Process/FFT/FFT_Verilog/rtl/ram_contral.v Line: 83
+Warning (10030): Net "factor_rom.waddr_a" at ram_contral.v(83) has no driver or initial value, using a default initial value '0' File: F:/Lab_Work/1_Learning/4_Signal_Processing_Code/Signal_Process/FFT/FFT_Verilog/rtl/ram_contral.v Line: 83
+Warning (10030): Net "factor_rom.we_a" at ram_contral.v(83) has no driver or initial value, using a default initial value '0' File: F:/Lab_Work/1_Learning/4_Signal_Processing_Code/Signal_Process/FFT/FFT_Verilog/rtl/ram_contral.v Line: 83
+Info (12128): Elaborating entity "A_RAM" for hierarchy "A_RAM:ram1" File: F:/Lab_Work/1_Learning/4_Signal_Processing_Code/Signal_Process/FFT/FFT_Verilog/rtl/top.v Line: 102
+Info (12128): Elaborating entity "butterfly" for hierarchy "butterfly:butterfly1" File: F:/Lab_Work/1_Learning/4_Signal_Processing_Code/Signal_Process/FFT/FFT_Verilog/rtl/top.v Line: 123
 Info (12128): Elaborating entity "ip_multi" for hierarchy "butterfly:butterfly1|ip_multi:mult0" File: F:/Lab_Work/1_Learning/4_Signal_Processing_Code/Signal_Process/FFT/FFT_Verilog/rtl/butterfly.v Line: 90
 Info (12128): Elaborating entity "lpm_mult" for hierarchy "butterfly:butterfly1|ip_multi:mult0|lpm_mult:lpm_mult_component" File: F:/Lab_Work/1_Learning/4_Signal_Processing_Code/Signal_Process/FFT/FFT_Verilog/prj/ip/ip_multi.v Line: 65
 Info (12130): Elaborated megafunction instantiation "butterfly:butterfly1|ip_multi:mult0|lpm_mult:lpm_mult_component" File: F:/Lab_Work/1_Learning/4_Signal_Processing_Code/Signal_Process/FFT/FFT_Verilog/prj/ip/ip_multi.v Line: 65
@@ -442,10 +462,17 @@ Info (12133): Instantiated megafunction "butterfly:butterfly1|ip_multi:mult0|lpm
 Info (12021): Found 1 design units, including 1 entities, in source file db/mult_q5q.tdf
     Info (12023): Found entity 1: mult_q5q File: F:/Lab_Work/1_Learning/4_Signal_Processing_Code/Signal_Process/FFT/FFT_Verilog/prj/db/mult_q5q.tdf Line: 30
 Info (12128): Elaborating entity "mult_q5q" for hierarchy "butterfly:butterfly1|ip_multi:mult0|lpm_mult:lpm_mult_component|mult_q5q:auto_generated" File: d:/quartus_18/quartus_prime18_install_file/quartus/libraries/megafunctions/lpm_mult.tdf Line: 376
-Info: Quartus Prime Analysis & Elaboration was successful. 0 errors, 21 warnings
-    Info: Peak virtual memory: 4734 megabytes
-    Info: Processing ended: Sat May 13 13:13:25 2023
-    Info: Elapsed time: 00:00:11
-    Info: Total CPU time (on all processors): 00:00:27
+Info (144001): Generated suppressed messages file F:/Lab_Work/1_Learning/4_Signal_Processing_Code/Signal_Process/FFT/FFT_Verilog/prj/output_files/fft_myown.map.smsg
+Info: Quartus Prime Analysis & Elaboration was successful. 0 errors, 16 warnings
+    Info: Peak virtual memory: 5038 megabytes
+    Info: Processing ended: Sun May 14 18:19:45 2023
+    Info: Elapsed time: 00:00:21
+    Info: Total CPU time (on all processors): 00:00:34
+
+
++--------------------------------------------+
+; Analysis & Elaboration Suppressed Messages ;
++--------------------------------------------+
+The suppressed messages can be found in F:/Lab_Work/1_Learning/4_Signal_Processing_Code/Signal_Process/FFT/FFT_Verilog/prj/output_files/fft_myown.map.smsg.
 
 

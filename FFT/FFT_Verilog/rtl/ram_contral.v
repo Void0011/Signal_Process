@@ -1,7 +1,7 @@
 module ram_contral
 #(
-    parameter N     = 8,
-    parameter L_max = 3
+    parameter N     = 512,
+    parameter L_max = 9
 )
 (
     clk,
@@ -31,14 +31,14 @@ module ram_contral
     
    
     /*当butterfly结束后，向RAM中写入的数据流时序*/
-    output reg                  wr_en;
-    output reg          [2:0]   wr_add1;
-    output reg          [2:0]   wr_add2;
+    output reg                   wr_en;
+    output reg     [L_max-1:0]   wr_add1;
+    output reg     [L_max-1:0]   wr_add2;
 
     /*控制RAM向butterfly中输入的数据流时序*/
     output reg                  rd_en;
-    output reg          [2:0]   rd_add1;
-    output reg          [2:0]   rd_add2;
+    output reg     [L_max-1:0]  rd_add1;
+    output reg     [L_max-1:0]  rd_add2;
 
     /*
     当RAM中收到读地址后的一个cycle，会输出A、B值。
@@ -53,55 +53,58 @@ module ram_contral
 
     localparam                  wait_RAM_initial    = 3'b001,
                                 read_addr           = 3'b010,
-                                read_finish          = 3'b100
-                                ;
+                                read_finish         = 3'b100;
     reg                 [2:0]   state;
 
     /*旋转因子中间值*/
-    reg  signed  [15:0]  factor_re_r,factor_im_r;
+    reg  signed         [15:0]  factor_re_r,factor_im_r;
 
     /*FFT蝶形运算级数*/
     reg                 [3:0]      L;
     /*FFT蝶形算子Index*/
-    reg                 [9:0]      J;
+    reg              [L_max-1:0]   J;
     /*FFT蝶形运算两输入地址Index*/
-    reg                 [9:0]      K;
+    reg              [L_max-1:0]   K;
 
     /*用来给K赋初值判断使用*/
     reg                 [1:0]      SameJ_cnt;
 
     /*用来延迟wr_en、wr_add1、wr_add2、rdaddr_finish*/
-    reg                  rd_en_r1,rd_en_r2;
-    reg          [2:0]   rd_add1_r1,rd_add1_r2;
-    reg          [2:0]   rd_add2_r1,rd_add2_r2;
-    reg                  read_addr_finish,read_addr_finish_r1,read_addr_finish_r2;
+    reg                           rd_en_r1,rd_en_r2;
+    reg             [L_max-1:0]   rd_add1_r1,rd_add1_r2;
+    reg             [L_max-1:0]   rd_add2_r1,rd_add2_r2;
+    reg                           read_addr_finish,read_addr_finish_r1,read_addr_finish_r2;
 
     /*控制读使能的延迟数寄存器*/
-    reg          [1:0]  rd_delay_cnt;
+    reg                 [1:0]     rd_delay_cnt;
 
-    wire                 fft_finish = wd_finish;
+    wire                          fft_finish = wd_finish;
 
-    reg signed          [31:0] factor_rom[255:0];
+    reg signed          [31:0]    factor_rom[1<<(L_max-1):0];
+
     /*注意使用反斜杠,起始地址为0*/
     initial begin
         $readmemh("F:/Lab_Work/1_Learning/4_Signal_Processing_Code/Signal_Process/FFT/factor.txt",factor_rom);
     end
     /*
     计算最后一级L_Max中K所取到的Max：K_Max;
-    计算L级中每J层的最大K值：J_K_Max
+    计算L级中J的最大值：J_MAX；
+    计算L级中每J层的最大K值：J_K_Max;
     */
-    wire         [9:0]  N_Sub       =   N-1;
-    wire         [9:0]  K_Max_Sub   =   {9'd0,1'b1}<<L-1;
-    wire         [9:0]  K_Max       =   N_Sub -  K_Max_Sub;
+    wire         [L_max-1:0]  N_Sub       =   N-1;
+    wire         [L_max-1:0]  K_Max_Sub   =   {{(L_max-1){1'b0}},1'b1}<<L-1;
+    wire         [L_max-1:0]  K_Max       =   N_Sub -  K_Max_Sub;
 
-    wire         [9:0]  J_K_Max_Sub =   {9'd0,1'b1}<<L;
-    wire         [9:0]  J_K_Max_Add =   N - J_K_Max_Sub;
-    wire         [9:0]  J_K_Max     =   J_K_Max_Add + J;
+    wire         [L_max-1:0]  J_Max       =    K_Max_Sub-1;
+
+    wire         [L_max-1:0]  J_K_Max_Sub =   {{(L_max-1){1'b0}},1'b1}<<L;
+    wire         [L_max-1:0]  J_K_Max_Add =   N - J_K_Max_Sub;
+    wire         [L_max-1:0] J_K_Max     =   J_K_Max_Add + J;
 
     wire                clk_rd      =   ~clk;
 
     /*计算旋转因子的Index*/
-    wire         [9:0] factor_index = J << (L_max - L);  
+    wire         [L_max-2:0] factor_index = J << (L_max - L);  
 
 always @(posedge clk or negedge rst) begin
     if(!rst)begin
@@ -171,7 +174,7 @@ always @(posedge clk or negedge rst) begin
                         */
                         rd_en                   <= 'b1;
                         rd_add1                 <= K;
-                        rd_add2                 <= K+({9'd0,1'b1}<<(L-1));
+                        rd_add2                 <= K+({{(L_max-1){1'b0}},1'b1}<<(L-1));
                         factor_re_r             <= factor_rom[factor_index][31:16];
                         factor_im_r             <= factor_rom[factor_index][15:0];
                         
@@ -186,12 +189,12 @@ always @(posedge clk or negedge rst) begin
 
                     else begin
                         /*在第L级，如果J自增到2^(L-1)-1，且K也到了最后一个值时，切换到L+1级*/
-                        if( ( J == ({9'd0,1'b1}<<(L-1)-1) ) &&
+                        if( ( J == J_Max ) &&
                             ((K == K_Max))
                             )begin
                                 /*归零J、K*/
                                     rd_add1         <= K;
-                                    rd_add2         <= K+({9'd0,1'b1}<<(L-1));
+                                    rd_add2         <= K+({{(L_max-1){1'b0}},1'b1}<<(L-1));
                                  /*
                                 在这里的rd_add1、2之所以不是0，是为防止在完成切换到下一级时，
                                 地址直接丢失，无法输出上一级最后一个地址。
@@ -241,7 +244,7 @@ always @(posedge clk or negedge rst) begin
                                 /*此时的K是从初值0开始，一直遍历完J层*/
                                 rd_en           <= 1;
                                 rd_add1         <= K;
-                                rd_add2         <= K+({9'd0,1'b1}<<(L-1));
+                                rd_add2         <= K+({{(L_max-1){1'b0}},1'b1}<<(L-1));
 
 
                                 /*当检测到第J层的K自增值已为当前J层最大时，切换到J+1层*/

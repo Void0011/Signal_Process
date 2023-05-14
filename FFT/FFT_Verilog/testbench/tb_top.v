@@ -20,15 +20,27 @@ module tb_top;
 	wire 		signed	[23:0]		dataout_im;
     wire                            fft_finish;
 
-    reg         signed  [47:0]      signal[7:0];
+    reg         signed  [47:0]      signal[511:0];
     integer     i;
+
+    integer j,dout_re_file,dout_im_file;
+	initial begin
+        dout_re_file=$fopen("F:/Lab_Work/1_Learning/4_Signal_Processing_Code/Signal_Process/FFT/FPGA_FFT_OUT.txt");
+		dout_im_file=$fopen("F:/Lab_Work/1_Learning/4_Signal_Processing_Code/Signal_Process/FFT/FPGA_FFT_OUT_im.txt");
+    end
 
     initial
         begin
 	         $readmemh("F:/Lab_Work/1_Learning/4_Signal_Processing_Code/Signal_Process/FFT/signal.txt",signal);
         end
+    
 
-    top t1(
+    top 
+    #(
+            .N(512),
+            .L_max(9)
+    )
+    t1(
             .clk(clk),
             .rst(rst),
             .initial_en(initial_en),
@@ -61,18 +73,24 @@ module tb_top;
         #(`clk_period);
         initial_en  =   0;
 
-        for(i=0;i<8;i=i+1)begin
+        for(i=0;i<512;i=i+1)begin
             @(posedge clk);
             datain_re   =   signal[i][47:24];
             datain_im   =   signal[i][23:0];	
         end
        
-        #(`clk_period*200);
+        #(`clk_period*2580);
         $stop;
         
 
-    end 
+    end
 
+    always @(posedge t1.ram1.wd_finish) begin
+		for(j=0;j<512;j=j+1)begin
+			$fdisplay(dout_re_file,"%d",$signed(t1.ram1.A_origin[j][47:24]));
+			$fdisplay(dout_im_file,"%d",$signed(t1.ram1.A_origin[j][23:0]));
+		end
+	end
 
 
 

@@ -1,4 +1,9 @@
-module A_RAM(
+module A_RAM
+#(
+    parameter N     = 512,
+    parameter L_max = 9
+)
+(
 		clk,
 		rst,
 		initial_en,
@@ -47,7 +52,7 @@ module A_RAM(
 	input							wd_finish;
 
 	/*写地址:outa对应的地址位wr_add1;outb对应的地址位wr_add2*/
-	input 				[2:0]		wr_add1,wr_add2;
+	input 				[L_max-1:0] wr_add1,wr_add2;
 
 	/*outa对应的虚实部*/
 	input 		signed	[23:0]		datain_re1,datain_im1;
@@ -57,9 +62,9 @@ module A_RAM(
 
 	/*RAM读使能信号。当蝶形算子计算一次完成后，立马发出读使能信号，读出两位数据*/
 	input 							rd_en;
-	input 				[2:0]		rd_add1;//读地址信号1，要读出的a对应的地址位
-	input 				[2:0]		rd_add2;//读地址信号2，要读出的b对应的地址位
-	input 				[2:0]		read_addr;//读地址信号，等待一次FFT计算完毕后，若要取出数据，要读出的地址位
+	input 				[L_max-1:0] rd_add1;//读地址信号1，要读出的a对应的地址位
+	input 				[L_max-1:0] rd_add2;//读地址信号2，要读出的b对应的地址位
+	input 				[L_max-1:0]	read_addr;//读地址信号，等待一次FFT计算完毕后，若要取出数据，要读出的地址位
 
 	output 	reg	signed	[23:0]		dataout_re1;//读出数据a的虚实部
 	output 	reg	signed	[23:0]		dataout_im1;
@@ -70,12 +75,15 @@ module A_RAM(
 	output 	reg	signed	[23:0]		dataout_im;
 
 	output	reg  					initial_flag;//初始化完成标志
+
+	
+	
 	
 	/*数据存储数组,高24位存储实部，低24位存储虚部*/
-    reg 				[47:0]		A_origin[7:0];
+    reg 				[47:0]		A_origin[N-1:0];
 
 	/*存储进RAM中的数据index*/
-	reg 				[11:0]		A_index;
+	reg 				[L_max:0]	A_index;
 
 	
 
@@ -95,7 +103,7 @@ module A_RAM(
 	/*延迟一拍initial_en，提供给A_index判断开始。目的是为保持A_index与输入数据一致*/
 	reg								initial_en_r;
 
-	wire				[11:0]		A_index_convert;
+	wire				[L_max:0]	A_index_convert;
 	/*clk_rd*/
 	wire							clk_rd			= ~clk;
 
@@ -108,9 +116,11 @@ module A_RAM(
 			initial_en_r			<= initial_en;
 		end		
 	end
+
 	always @(posedge clk or negedge rst)begin
 		if(!rst)begin
 			A_index 			    <= 'd0;
+			A_index_add				<= A_wait_initial;
 		end
 		else begin
 			case(A_index_add)
@@ -124,7 +134,7 @@ module A_RAM(
 				end
 
 				A_index_add:begin
-					if(A_index == 'd8)begin
+					if(A_index == N)begin
 						A_index 			    <= 'd0;
 						A_index_add				<= A_wait_initial;
 					end
@@ -138,12 +148,12 @@ module A_RAM(
 	end
 
 	/*A_index码元倒置序号*/
-	assign A_index_convert 						= {A_index[0],A_index[1],A_index[2]};
+	assign A_index_convert 		= {A_index[0],A_index[1],A_index[2],A_index[3],A_index[4],A_index[5],A_index[6],A_index[7],A_index[8]};
 
 	/*初试化A_RAM，数据输入与clk保持同步。数据写入A_RAM中的操作与clk_rd保持同步。*/
 	always @(posedge clk_rd or negedge rst)begin
 		if(!rst)begin
-			for(i=0;i<8;i=i+1)begin
+			for(i=0;i<N;i=i+1)begin
 				A_origin[i] 	 	<= 'd0;
 			end		
 			initial_flag			<= 'b0;
@@ -151,6 +161,7 @@ module A_RAM(
 		end
 		
 		else begin
+			i =0;
 			case(initial_state)
 				wait_wirte_ok:begin
 					/*等待上一次FFT计算后的数据写入RAM完成后，再进行初试化*/
@@ -173,7 +184,7 @@ module A_RAM(
 				end
 
 				convert:begin
-					if(A_index == 'd8)begin
+					if(A_index == N)begin
 							initial_state 		    <= convert_finish;
 							initial_flag 	        <= 1'b1;
 						end
@@ -229,6 +240,8 @@ module A_RAM(
 			dataout_im2		<= 'd0;
 		end			
 	end
+
+	
 	
 	
 endmodule 

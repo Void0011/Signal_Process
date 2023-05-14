@@ -593,16 +593,19 @@
 # Loading work.ip_multi(fast)
 # Loading lpm_ver.lpm_mult(fast)
 # Loading lpm_ver.LPM_HINT_EVALUATION(fast)
+# ** Warning: (vsim-3015) F:/Lab_Work/1_Learning/4_Signal_Processing_Code/Signal_Process/FFT/FFT_Verilog/prj/../testbench/tb_top.v(56): [PCDPC] - Port size (9 or 9) does not match connection size (3) for port 'read_addr'. The port definition is at: F:/Lab_Work/1_Learning/4_Signal_Processing_Code/Signal_Process/FFT/FFT_Verilog/rtl/top.v(14).
+# 
+#         Region: /tb_top/t1
 # 
 # add wave *
 # ** Warning: (vsim-WLF-5000) WLF file currently in use: vsim.wlf
 # 
 #           File in use by: DELL  Hostname: LAPTOP-A861C6F7  ProcessID: 9008
 # 
-#           Attempting to use alternate WLF file "./wlft4rajnr".
+#           Attempting to use alternate WLF file "./wlftfid2fh".
 # ** Warning: (vsim-WLF-5001) Could not open WLF file: vsim.wlf
 # 
-#           Using alternate file: ./wlft4rajnr
+#           Using alternate file: ./wlftfid2fh
 # 
 # 
 # view structure
@@ -610,33 +613,14 @@
 # view signals
 # .main_pane.objects.interior.cs.body.tree
 # run -all
-# Break in Module tb_top at F:/Lab_Work/1_Learning/4_Signal_Processing_Code/Signal_Process/FFT/FFT_Verilog/prj/../testbench/tb_top.v line 71
-# Simulation Breakpoint: Break in Module tb_top at F:/Lab_Work/1_Learning/4_Signal_Processing_Code/Signal_Process/FFT/FFT_Verilog/prj/../testbench/tb_top.v line 71
+# Break in Module tb_top at F:/Lab_Work/1_Learning/4_Signal_Processing_Code/Signal_Process/FFT/FFT_Verilog/prj/../testbench/tb_top.v line 83
+# Simulation Breakpoint: Break in Module tb_top at F:/Lab_Work/1_Learning/4_Signal_Processing_Code/Signal_Process/FFT/FFT_Verilog/prj/../testbench/tb_top.v line 83
 # MACRO ./fft_myown_run_msim_rtl_verilog.do PAUSED at line 50
 add wave -position insertpoint  \
-sim:/tb_top/t1/ram1/A_origin
-add wave -position insertpoint  \
-sim:/tb_top/t1/ram1/rd_en \
-sim:/tb_top/t1/ram1/rd_add1 \
-sim:/tb_top/t1/ram1/rd_add2
-add wave -position insertpoint  \
-sim:/tb_top/t1/ram1/wr_en \
-sim:/tb_top/t1/ram1/wd_finish \
-sim:/tb_top/t1/ram1/wr_add1 \
-sim:/tb_top/t1/ram1/wr_add2
-add wave -position insertpoint  \
-sim:/tb_top/t1/butterfly1/a_re \
-sim:/tb_top/t1/butterfly1/a_im \
-sim:/tb_top/t1/butterfly1/b_re \
-sim:/tb_top/t1/butterfly1/b_im \
-sim:/tb_top/t1/butterfly1/c_re \
-sim:/tb_top/t1/butterfly1/c_im \
 sim:/tb_top/t1/butterfly1/outa_re \
 sim:/tb_top/t1/butterfly1/outa_im \
 sim:/tb_top/t1/butterfly1/outb_re \
 sim:/tb_top/t1/butterfly1/outb_im
-add wave -position insertpoint  \
-sim:/tb_top/t1/ram1/clk_rd
 restart
 # Loading work.tb_top(fast)
 # Loading work.top(fast)
@@ -646,10 +630,15 @@ restart
 # Loading work.ip_multi(fast)
 # Loading lpm_ver.lpm_mult(fast)
 # Loading lpm_ver.LPM_HINT_EVALUATION(fast)
+# ** Warning: (vsim-3015) F:/Lab_Work/1_Learning/4_Signal_Processing_Code/Signal_Process/FFT/FFT_Verilog/prj/../testbench/tb_top.v(56): [PCDPC] - Port size (9 or 9) does not match connection size (3) for port 'read_addr'. The port definition is at: F:/Lab_Work/1_Learning/4_Signal_Processing_Code/Signal_Process/FFT/FFT_Verilog/rtl/top.v(14).
+# 
+#         Region: /tb_top/t1
 run -all
-# Break in Module tb_top at F:/Lab_Work/1_Learning/4_Signal_Processing_Code/Signal_Process/FFT/FFT_Verilog/prj/../testbench/tb_top.v line 71
+# Break in Module tb_top at F:/Lab_Work/1_Learning/4_Signal_Processing_Code/Signal_Process/FFT/FFT_Verilog/prj/../testbench/tb_top.v line 83
 add wave -position insertpoint  \
-sim:/tb_top/t1/ram1/initial_flag
+sim:/tb_top/t1/ctrl/wr_en \
+sim:/tb_top/t1/ctrl/wr_add1 \
+sim:/tb_top/t1/ctrl/wr_add2
 restart
 # Loading work.tb_top(fast)
 # Loading work.top(fast)
@@ -659,25 +648,20 @@ restart
 # Loading work.ip_multi(fast)
 # Loading lpm_ver.lpm_mult(fast)
 # Loading lpm_ver.LPM_HINT_EVALUATION(fast)
+# ** Warning: (vsim-3015) F:/Lab_Work/1_Learning/4_Signal_Processing_Code/Signal_Process/FFT/FFT_Verilog/prj/../testbench/tb_top.v(56): [PCDPC] - Port size (9 or 9) does not match connection size (3) for port 'read_addr'. The port definition is at: F:/Lab_Work/1_Learning/4_Signal_Processing_Code/Signal_Process/FFT/FFT_Verilog/rtl/top.v(14).
+# 
+#         Region: /tb_top/t1
 run -all
-# Break in Module tb_top at F:/Lab_Work/1_Learning/4_Signal_Processing_Code/Signal_Process/FFT/FFT_Verilog/prj/../testbench/tb_top.v line 71
-vlog -vlog01compat -work work +incdir+F:/Lab_Work/1_Learning/4_Signal_Processing_Code/Signal_Process/FFT/FFT_Verilog/rtl -L mtiAvm -L mtiOvm -L mtiUvm -L mtiUPF F:/Lab_Work/1_Learning/4_Signal_Processing_Code/Signal_Process/FFT/FFT_Verilog/rtl/ram_contral.v
+# Break in Module tb_top at F:/Lab_Work/1_Learning/4_Signal_Processing_Code/Signal_Process/FFT/FFT_Verilog/prj/../testbench/tb_top.v line 83
+vlog -vlog01compat -work work +incdir+F:/Lab_Work/1_Learning/4_Signal_Processing_Code/Signal_Process/FFT/FFT_Verilog/prj/../testbench -L mtiAvm -L mtiOvm -L mtiUvm -L mtiUPF F:/Lab_Work/1_Learning/4_Signal_Processing_Code/Signal_Process/FFT/FFT_Verilog/testbench/tb_top.v
 # Model Technology ModelSim SE vlog 10.1a Compiler 2012.02 Feb 22 2012
-# -- Compiling module ram_contral
+# -- Compiling module tb_top
 # 
 # Top level modules:
-# 	ram_contral
-vlog -vlog01compat -work work +incdir+F:/Lab_Work/1_Learning/4_Signal_Processing_Code/Signal_Process/FFT/FFT_Verilog/rtl -L mtiAvm -L mtiOvm -L mtiUvm -L mtiUPF F:/Lab_Work/1_Learning/4_Signal_Processing_Code/Signal_Process/FFT/FFT_Verilog/rtl/top.v
-# Model Technology ModelSim SE vlog 10.1a Compiler 2012.02 Feb 22 2012
-# -- Compiling module top
-# 
-# Top level modules:
-# 	top
+# 	tb_top
 restart
 # ** Note: (vsim-3813) Design is being optimized due to module recompilation...
 # 
-# ** Note: (vopt-143) Recognized 1 FSM in module "ram_contral(fast)".
-# 
 # Loading work.tb_top(fast)
 # Loading work.top(fast)
 # Loading work.ram_contral(fast)
@@ -686,79 +670,8 @@ restart
 # Loading work.ip_multi(fast)
 # Loading lpm_ver.lpm_mult(fast)
 # Loading lpm_ver.LPM_HINT_EVALUATION(fast)
-run -all
-# Break in Module tb_top at F:/Lab_Work/1_Learning/4_Signal_Processing_Code/Signal_Process/FFT/FFT_Verilog/prj/../testbench/tb_top.v line 71
-vlog -vlog01compat -work work +incdir+F:/Lab_Work/1_Learning/4_Signal_Processing_Code/Signal_Process/FFT/FFT_Verilog/rtl -L mtiAvm -L mtiOvm -L mtiUvm -L mtiUPF F:/Lab_Work/1_Learning/4_Signal_Processing_Code/Signal_Process/FFT/FFT_Verilog/rtl/ram_contral.v
-# Model Technology ModelSim SE vlog 10.1a Compiler 2012.02 Feb 22 2012
-# -- Compiling module ram_contral
+# ** Warning: (vsim-3015) F:/Lab_Work/1_Learning/4_Signal_Processing_Code/Signal_Process/FFT/FFT_Verilog/testbench/tb_top.v(56): [PCDPC] - Port size (9 or 9) does not match connection size (3) for port 'read_addr'. The port definition is at: F:/Lab_Work/1_Learning/4_Signal_Processing_Code/Signal_Process/FFT/FFT_Verilog/rtl/top.v(14).
 # 
-# Top level modules:
-# 	ram_contral
-vlog -vlog01compat -work work +incdir+F:/Lab_Work/1_Learning/4_Signal_Processing_Code/Signal_Process/FFT/FFT_Verilog/rtl -L mtiAvm -L mtiOvm -L mtiUvm -L mtiUPF F:/Lab_Work/1_Learning/4_Signal_Processing_Code/Signal_Process/FFT/FFT_Verilog/rtl/top.v
-# Model Technology ModelSim SE vlog 10.1a Compiler 2012.02 Feb 22 2012
-# -- Compiling module top
-# 
-# Top level modules:
-# 	top
-restart
-# ** Note: (vsim-3813) Design is being optimized due to module recompilation...
-# 
-# ** Note: (vopt-143) Recognized 1 FSM in module "ram_contral(fast)".
-# 
-# Loading work.tb_top(fast)
-# Loading work.top(fast)
-# Loading work.ram_contral(fast)
-# Loading work.A_RAM(fast)
-# Loading work.butterfly(fast)
-# Loading work.ip_multi(fast)
-# Loading lpm_ver.lpm_mult(fast)
-# Loading lpm_ver.LPM_HINT_EVALUATION(fast)
+#         Region: /tb_top/t1
 run -all
-# Break in Module tb_top at F:/Lab_Work/1_Learning/4_Signal_Processing_Code/Signal_Process/FFT/FFT_Verilog/prj/../testbench/tb_top.v line 71
-add wave -position insertpoint  \
-{sim:/tb_top/t1/butterfly1/en_r[1]} \
-{sim:/tb_top/t1/butterfly1/en_r[0]}
-add wave -position insertpoint  \
-sim:/tb_top/t1/butterfly1/en
-restart
-# Loading work.tb_top(fast)
-# Loading work.top(fast)
-# Loading work.ram_contral(fast)
-# Loading work.A_RAM(fast)
-# Loading work.butterfly(fast)
-# Loading work.ip_multi(fast)
-# Loading lpm_ver.lpm_mult(fast)
-# Loading lpm_ver.LPM_HINT_EVALUATION(fast)
-run -all
-# Break in Module tb_top at F:/Lab_Work/1_Learning/4_Signal_Processing_Code/Signal_Process/FFT/FFT_Verilog/prj/../testbench/tb_top.v line 71
-add wave -position insertpoint  \
-sim:/tb_top/t1/ctrl/L \
-sim:/tb_top/t1/ctrl/J \
-sim:/tb_top/t1/ctrl/K
-add wave -position insertpoint  \
-sim:/tb_top/t1/ctrl/SameJ_cnt
-restart
-# Loading work.tb_top(fast)
-# Loading work.top(fast)
-# Loading work.ram_contral(fast)
-# Loading work.A_RAM(fast)
-# Loading work.butterfly(fast)
-# Loading work.ip_multi(fast)
-# Loading lpm_ver.lpm_mult(fast)
-# Loading lpm_ver.LPM_HINT_EVALUATION(fast)
-run -all
-# Break in Module tb_top at F:/Lab_Work/1_Learning/4_Signal_Processing_Code/Signal_Process/FFT/FFT_Verilog/prj/../testbench/tb_top.v line 71
-add wave -position insertpoint  \
-sim:/tb_top/t1/ctrl/state
-restart
-# Loading work.tb_top(fast)
-# Loading work.top(fast)
-# Loading work.ram_contral(fast)
-# Loading work.A_RAM(fast)
-# Loading work.butterfly(fast)
-# Loading work.ip_multi(fast)
-# Loading lpm_ver.lpm_mult(fast)
-# Loading lpm_ver.LPM_HINT_EVALUATION(fast)
-run -all
-# Break in Module tb_top at F:/Lab_Work/1_Learning/4_Signal_Processing_Code/Signal_Process/FFT/FFT_Verilog/prj/../testbench/tb_top.v line 71
-write format wave -window .main_pane.wave.interior.cs.body.pw.wf F:/Lab_Work/1_Learning/4_Signal_Processing_Code/Signal_Process/FFT/FFT_Verilog/wave/Top_test_8fft.do
+# Break in Module tb_top at F:/Lab_Work/1_Learning/4_Signal_Processing_Code/Signal_Process/FFT/FFT_Verilog/testbench/tb_top.v line 83

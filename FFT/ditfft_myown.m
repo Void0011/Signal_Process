@@ -1,4 +1,4 @@
-function [output1,output2,output3,output4] = ditfft_myown(x_n,N)
+function [output1,output2,output3,output4,output5,output6,output7,output8,output9,output10] = ditfft_myown(x_n,N)
 %x_n is the input arrary,N is the fft points
 x_origin = x_n;
 len = length(x_n);
@@ -9,7 +9,7 @@ if(len<N)                         %如果序列长度不够，进行补零操作
 end
 nxd = bin2dec(fliplr(dec2bin([1:N]-1,m)))+1;    %将坐标进行倒序操作
 x_n = x_n(nxd);
-A=zeros(N,4);                   %创建一个全零数组A，深度为N，保存每级蝶形运算计算的结果
+A=zeros(N,10);                   %创建一个全零数组A，深度为N，保存每级蝶形运算计算的结果
 for i = 1:N
     A(i,1) = x_n(1,i);                  %将原始序列作为A_0数据
 end
@@ -42,19 +42,56 @@ end
    output2 = floor(A(:,2));
    output3 = floor(A(:,3));
    output4 = floor(A(:,4));
+   output5 = floor(A(:,5));
+   output6 = floor(A(:,6));
+   output7 = floor(A(:,7));
+   output8 = floor(A(:,8));
+   output9 = floor(A(:,9));
+   output10 = floor(A(:,10));
+   
+  FPGA_RE=importdata('./FPGA_FFT_OUT.txt');
+  FPGA_IM=importdata('./FPGA_FFT_OUT_im.txt');
+  FFT_FPGA=(FPGA_RE.^2+FPGA_IM.^2).^0.5;
     
-       
-    subplot(2,1,1);%在第1行绘制FFT内置函数
+ figure(1);
+    subplot(3,1,1);%在第1行绘制FFT内置函数
     H=fft(x_origin,N);
     [x1,y1]=size(H);
     y1_mid = 1:y1;
     stem(y1_mid,abs(H),'.');
      title('内置FFT');
      
-    subplot(2,1,2);%在第2行绘制FFT手写函数
-    [x2,y2]=size(output4');%数组列序号作为横坐标
+    subplot(3,1,2);%在第2行绘制FFT手写函数
+    [x2,y2]=size(A(:,10)');%数组列序号作为横坐标
     y2_mid = 1:y2;
-    stem(y2_mid,abs(output4'),'.');
+    stem(y2_mid,abs(A(:,10)'),'.');
     title('手写FFT');
+    
+    subplot(3,1,3);%在第3行绘制FPGA计算的FFT
+    [x3,y3]=size(FFT_FPGA');%数组列序号作为横坐标
+    y3_mid = 1:y3;
+    stem(y3_mid,(FFT_FPGA'),'.');
+    title('FPGAFFT');
+ 
+    figure(2);
+    subplot(2,1,1);%在第3行绘制FPGA计算的FFT
+    stem(y1_mid,abs(H),'.');  
+    hold on;
+    stem(y3_mid,(FFT_FPGA'),':diamondr');
+
+    title('FFT-Compare');
+    xlabel('N');
+    ylabel('Value');
+    legend('Matlab-FFT','FPGA-FFT');
+    
+  subplot(2,1,2);%在第3行绘制FPGA计算的FFT
+  sub=abs(abs(H)-(FFT_FPGA'))./abs(H);
+  plot(y3_mid,sub);
+  
+
+    title('Difference');
+    xlabel('N');
+    ylabel('Value');
+    
                     
                     

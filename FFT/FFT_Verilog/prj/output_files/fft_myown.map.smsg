@@ -1,1 +1,1 @@
-Info (10281): Verilog HDL Declaration information at ram_contral.v(52): object "fft_finish" differs only in case from object "FFT_Finish" in the same scope File: F:/Lab_Work/1_Learning/4_Signal_Processing_Code/Signal_Process/FFT/FFT_Verilog/rtl/ram_contral.v Line: 52
+Warning (10268): Verilog HDL information at A_RAM.v(154): always construct contains both blocking and non-blocking assignments File: F:/Lab_Work/1_Learning/4_Signal_Processing_Code/Signal_Process/FFT/FFT_Verilog/rtl/A_RAM.v Line: 154

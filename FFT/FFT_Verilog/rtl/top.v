@@ -1,4 +1,9 @@
-module  top(
+module  top
+#(
+    parameter N     = 512,
+    parameter L_max = 9
+)
+(
     clk,
     rst,
     initial_en,
@@ -19,7 +24,7 @@ module  top(
 
 	input 		signed	[23:0]		datain_re;//初试化RAM数据的虚实部
 	input 		signed	[23:0]		datain_im;
-    input               [2:0]       read_addr;
+    input               [L_max-1:0] read_addr;
 
     output 		signed	[23:0]		dataout_re;//读出RAM数据的虚实部
 	output 		signed	[23:0]		dataout_im;
@@ -30,15 +35,15 @@ module  top(
     wire                            en_multi_r;
     wire                            butterfly_finish_flag_r;
     wire                            wr_en_r,rd_en_r;
-    wire                [2:0]       wr_add1_r,wr_add2_r,rd_add1_r,rd_add2_r;
+    wire                [L_max-1:0] wr_add1_r,wr_add2_r,rd_add1_r,rd_add2_r;
 
     wire signed         [15:0]      factor_re_r,factor_im_r;
     wire signed         [23:0]      datain_re1_r,datain_im1_r,datain_re2_r,datain_im2_r;
     wire signed         [23:0]      dataout_re1_r,dataout_im1_r,dataout_re2_r,dataout_im2_r;
     ram_contral 
         #(
-            .N(8),
-            .L_max(3)
+            .N(N),
+            .L_max(L_max)
         )
         ctrl(
             .clk(clk),
@@ -60,7 +65,12 @@ module  top(
             .fft_finish(fft_finish)
         );
 
-    A_RAM   ram1(
+    A_RAM   
+        #(
+            .N(N),
+            .L_max(L_max)
+        )
+        ram1(
 		    .clk(clk),
             .rst(rst),
 		    .initial_en(initial_en),
